@@ -17,6 +17,8 @@ public class MainActivity extends ActionBarActivity {
         // 以下两行连接LeanCloud，切勿修改
         AVOSCloud.initialize(this, "dohthw768v153y9t2eldqiwvtwf9vu07vvyzxv4kjdqbpdsf", "gs5r4j0xg7wg0xkmvjrgdv4gt1hxiaqxpso3jfzani5w8hhk");
         AVAnalytics.trackAppOpened(getIntent());
+
+
     }
 
 
