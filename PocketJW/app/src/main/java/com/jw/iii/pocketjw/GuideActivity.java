@@ -28,7 +28,7 @@ public class GuideActivity extends ActionBarActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                intent = new Intent(GuideActivity.this, MainActivity.class);
+                intent = new Intent(GuideActivity.this, LoginActivity.class);
                 GuideActivity.this.startActivity(intent);
                 GuideActivity.this.finish();
             }

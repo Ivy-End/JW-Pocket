@@ -27,6 +27,10 @@
             android:name=".GuideActivity"
             android:label="@string/title_activity_guide" >
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>

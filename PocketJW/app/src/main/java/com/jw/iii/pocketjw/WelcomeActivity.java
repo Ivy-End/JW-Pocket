@@ -21,13 +21,18 @@ public class WelcomeActivity extends ActionBarActivity {
         // 否则跳转到MainActivity
         SharedPreferences preferences = getSharedPreferences("jw_pref", MODE_PRIVATE);
         isFirstIn = preferences.getBoolean("isFirstIn", true);
+        isLogIn = preferences.getBoolean("isLogIn", false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (isFirstIn) {
                     intent = new Intent(WelcomeActivity.this, GuideActivity.class);
                 } else {
-                    intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    if(isLogIn) {
+                        intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    } else {
+                        intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    }
                 }
                 WelcomeActivity.this.startActivity(intent);
                 WelcomeActivity.this.finish();
@@ -61,5 +66,6 @@ public class WelcomeActivity extends ActionBarActivity {
 
     Intent intent;
     boolean isFirstIn = false;
+    boolean isLogIn = false;
     final int WELCOME_DISPLAY_LENGTH = 2000;
 }
