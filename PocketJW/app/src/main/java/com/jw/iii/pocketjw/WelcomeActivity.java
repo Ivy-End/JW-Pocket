@@ -27,8 +27,8 @@ public class WelcomeActivity extends ActionBarActivity {
             public void run() {
                 if (isFirstIn) {
                     intent = new Intent(WelcomeActivity.this, GuideActivity.class);
-                } else {
-                    if(isLogIn) {
+                    } else {
+                        if(isLogIn) {
                         intent = new Intent(WelcomeActivity.this, MainActivity.class);
                     } else {
                         intent = new Intent(WelcomeActivity.this, LoginActivity.class);
