@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Pocket JW</string>
+    <string name="app_name">掌上敬文</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_welcome">掌上敬文</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_guide">GuideActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_guide">教程</string>
+    <string name="title_activity_login">登陆</string>
 
 </resources>

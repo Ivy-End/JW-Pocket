@@ -19,11 +19,11 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        testA = (TextView)findViewById(R.id.test);
-
         // 以下两行连接LeanCloud，切勿修改
         AVOSCloud.initialize(this, "dohthw768v153y9t2eldqiwvtwf9vu07vvyzxv4kjdqbpdsf", "gs5r4j0xg7wg0xkmvjrgdv4gt1hxiaqxpso3jfzani5w8hhk");
         AVAnalytics.trackAppOpened(getIntent());
+
+
     }
 
 
@@ -48,6 +48,4 @@ public class LoginActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private TextView testA;
 }
