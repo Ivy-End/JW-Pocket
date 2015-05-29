@@ -1,10 +1,14 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
@@ -12,13 +16,14 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.jw.iii.pocketjw.Helper;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.jw.iii.pocketjw.R;
 
 import java.util.List;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +39,55 @@ public class LoginActivity extends ActionBarActivity {
         loginUsername = preferences.getString("lastLoginUsername", "");
         loginPassword = preferences.getString("lastLoginPassword", "");
         if (loginUsername != "" && loginPassword != "") {
-            if (login()) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        intent = new Intent(LoginActivity.this, LoginActivity.class);
-                        LoginActivity.this.startActivity(intent);
-                        LoginActivity.this.finish();
-                    }
-                });
-            }
+            login();
         }
 
         // 获取布局资源
         avatar = (CircularImage)findViewById(R.id.default_avatar);
+        etUsername = (EditText)findViewById(R.id.username);
+        etPassword = (EditText)findViewById(R.id.password);
+        tvLoginMsg = (TextView)findViewById(R.id.loginMsg);
+        btLogin = (Button)findViewById(R.id.login);
 
         // 初始化
         avatar.setImageResource(R.drawable.default_avatar);
 
         if (loginUsername != "") {
             // 自动填充用户名
+            etUsername.setText(loginUsername);
+        }
+
+        // 监听事件
+        btLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login:
+                loginUsername = etUsername.getText().toString();
+                loginPassword = Helper.md5(etPassword.getText().toString());
+                login();
+                break;
+            default:
+                break;
         }
     }
 
-    private boolean login() {
+    private void login() {
+        if (loginQuery()) {
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    intent = new Intent(LoginActivity.this, LoginActivity.class);
+                    LoginActivity.this.startActivity(intent);
+                    LoginActivity.this.finish();
+                }
+            });
+        }
+    }
+
+    private boolean loginQuery() {
         AVQuery<AVObject> query = new AVQuery<AVObject>("User");
         query.whereEqualTo("username", loginUsername);
         query.whereEqualTo("password", loginPassword);
@@ -68,6 +98,7 @@ public class LoginActivity extends ActionBarActivity {
                     loginStatus = true;
                 } else {
                     // 显示错误信息
+                    tvLoginMsg.setText(e.getMessage());
                     loginStatus = false;
                 }
             }
@@ -76,6 +107,10 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private CircularImage avatar;
+    private EditText etUsername;
+    private EditText etPassword;
+    private TextView tvLoginMsg;
+    private Button btLogin;
 
     private String loginUsername;
     private String loginPassword;
