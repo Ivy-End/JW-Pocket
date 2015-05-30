@@ -151,6 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         if (loginQuery()) {
 
             // 保存登陆信息
+            // TODO: 测试完毕后删除下面第4行注释符号
             SharedPreferences preferences = getSharedPreferences("jw_pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("lastLoginUsername", loginUsername);

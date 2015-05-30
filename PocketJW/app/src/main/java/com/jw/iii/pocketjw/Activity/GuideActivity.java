@@ -19,7 +19,7 @@ public class GuideActivity extends Activity {
         setContentView(R.layout.activity_guide);
 
         // 将isFirstIn置为false，下次将不再加载此页面
-        // GuideActivity测试完毕后可删去第3-4行注释
+        // TODO: GuideActivity测试完毕后可删去第2-4行注释符号
         SharedPreferences preferences = getSharedPreferences("jw_pref", MODE_PRIVATE);
         // Editor editor = preferences.edit();
         // editor.putBoolean("isFirstIn", false);

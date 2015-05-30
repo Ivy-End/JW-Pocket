@@ -22,16 +22,14 @@ public class NewsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+        // 设置ToolBar
         toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         setSupportActionBar(toolbar);
 
+        // 设置TabHost
         tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
-
-        //tabHost.addTab(tabHost.newTabSpec("tabOffical").setIndicator("书院新闻").setContent(R.id.tabOffical));
-
-
 
         tabOffical = tabHost.newTabSpec("tabOffical");
         tabOffical.setIndicator("书院新闻");
@@ -44,6 +42,10 @@ public class NewsActivity extends ActionBarActivity {
         tabHost.addTab(tabUnoffical);
 
         tabHost.setCurrentTab(0);
+
+        // TODO: 修改tab strip颜色
+
+
     }
 
     private android.support.v7.widget.Toolbar toolbar;
