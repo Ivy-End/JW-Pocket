@@ -1,24 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/iiiActionStyle</item>
-    </style>
+    <style name="iiiActionStyle" parent="iiiActionStyle.Base" />
 
-    <style name="iiiActionStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#ED7A63</item>
-        <item name="android:titleTextStyle">@style/iiiTitleTextStyle</item>
-        <item name="android:actionBarTabTextStyle">@style/iiiActionBarTabTextStyle</item>
-    </style>
-
-    <style name="iiiTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
-
-    <style name="iiiActionBarTabTextStyle" parent="@android:style/Widget.Holo.ActionBar.TabText">
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">#FFFFFF</item>
+    <style name="iiiActionStyle.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorPrimaryDark">@color/main_dark</item>
     </style>
 
 </resources>

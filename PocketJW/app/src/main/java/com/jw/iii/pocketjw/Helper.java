@@ -1,7 +1,13 @@
 package com.jw.iii.pocketjw;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -46,6 +52,18 @@ public class Helper {
         } catch(FileNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void setActionBarLayout(Activity activity, int layoutId) {
+        ActionBar actionBar = activity.getActionBar();
+        if (null != actionBar) {
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            LayoutInflater layoutInflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(layoutId, null);
+            ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+            actionBar.setCustomView(view, layoutParams);
         }
     }
 }
