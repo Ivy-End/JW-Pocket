@@ -1,5 +1,6 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -132,7 +133,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 login();
                 break;
             case R.id.loginNews:
-
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        intent = new Intent(LoginActivity.this, NewsActivity.class);
+                        LoginActivity.this.startActivity(intent);
+                        LoginActivity.this.finish();
+                    }
+                });
                 break;
             default:
                 break;

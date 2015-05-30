@@ -1,5 +1,6 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -12,7 +13,7 @@ import com.jw.iii.pocketjw.*;
 import com.jw.iii.pocketjw.R;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -9,7 +11,7 @@ import android.os.Bundle;
 import com.jw.iii.pocketjw.R;
 
 
-public class GuideActivity extends ActionBarActivity {
+public class GuideActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
