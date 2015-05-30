@@ -8,20 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-import com.jw.iii.pocketjw.Helper;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.jw.iii.pocketjw.IIIApplication;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.jw.iii.pocketjw.R;
-
-import java.util.List;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -30,6 +26,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // 初始化IIIApplication
+        iiiApplication = (IIIApplication)getApplication();
 
         // 以下两行连接LeanCloud，切勿修改
         AVOSCloud.initialize(this, "dohthw768v153y9t2eldqiwvtwf9vu07vvyzxv4kjdqbpdsf", "gs5r4j0xg7wg0xkmvjrgdv4gt1hxiaqxpso3jfzani5w8hhk");
@@ -67,31 +66,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login:
                 loginUsername = etUsername.getText().toString();
                 loginPassword = etPassword.getText().toString();
-                // loginPassword = Helper.md5(etPassword.getText().toString());
-                // login();
-
-                AVObject gameScore = new AVObject("GameScore");
-                gameScore.put("score", 1400);
-                gameScore.put("playerName", "Robin");
-                gameScore.put("level", 20);
-                gameScore.put("gold", 32000);
-                gameScore.put("coin", 500);
-                gameScore.put("chapter", 15);
-                gameScore.put("stage", 8);
-                try {
-                    gameScore.save();
-                } catch (AVException e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-                /*AVQuery<AVObject> query = new AVQuery<AVObject>("User");
-                AVObject gameScore;
-                try {
-                    gameScore = query.get("553b9f17e4b039a50c0cd311");
-                    tvLoginMsg.setText(gameScore.getString("password"));
-                } catch (AVException e) {
-                    tvLoginMsg.setText(e.getMessage());
-                }*/
+                login();
 
                 break;
             default:
@@ -106,12 +81,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             SharedPreferences preferences = getSharedPreferences("jw_pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("lastLoginUsername", loginUsername);
-            editor.putString("lastLoginUsername", loginPassword);
+            // editor.putString("lastLoginPassword", loginPassword);
+            editor.commit();
 
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    intent = new Intent(LoginActivity.this, LoginActivity.class);
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(intent);
                     LoginActivity.this.finish();
                 }
@@ -120,16 +96,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private boolean loginQuery() {
-        AVQuery<AVObject> query = new AVQuery<AVObject>("User");
-        query.whereEqualTo("username", loginUsername);
-        query.whereEqualTo("password", loginPassword);
-        query.findInBackground(new FindCallback<AVObject>() {
+        AVUser.logInInBackground(loginUsername, loginPassword, new LogInCallback<AVUser>() {
             @Override
-            public void done(List<AVObject> avObjects, AVException e) {
-                if(e == null) {
+            public void done(AVUser avUser, AVException e) {
+                if (avUser != null) {
+                    iiiApplication.currentUser = avUser;
                     loginStatus = true;
                 } else {
-                    // 显示错误信息
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     loginStatus = false;
                 }
@@ -150,4 +123,5 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private Intent intent;
 
+    private IIIApplication iiiApplication;
 }
