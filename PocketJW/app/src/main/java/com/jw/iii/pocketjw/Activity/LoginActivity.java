@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
@@ -15,6 +16,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.jw.iii.pocketjw.Helper;
 import com.jw.iii.pocketjw.IIIApplication;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.jw.iii.pocketjw.R;
@@ -47,6 +49,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         etUsername = (EditText)findViewById(R.id.username);
         etPassword = (EditText)findViewById(R.id.password);
         btLogin = (Button)findViewById(R.id.login);
+        tvLoginNews = (TextView)findViewById(R.id.loginNews);
 
         // 初始化
         avatar.setImageResource(R.drawable.default_avatar);
@@ -58,6 +61,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         // 监听事件
         btLogin.setOnClickListener(this);
+        tvLoginNews.setOnClickListener(this);
     }
 
     @Override
@@ -65,8 +69,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.login:
                 loginUsername = etUsername.getText().toString();
-                loginPassword = etPassword.getText().toString();
+                loginPassword = Helper.md5(etPassword.getText().toString());
                 login();
+
+                break;
+            case R.id.loginNews:
 
                 break;
             default:
@@ -82,7 +89,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("lastLoginUsername", loginUsername);
             // editor.putString("lastLoginPassword", loginPassword);
-            editor.commit();
+            editor.apply();
 
             new Handler().post(new Runnable() {
                 @Override
@@ -100,7 +107,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void done(AVUser avUser, AVException e) {
                 if (avUser != null) {
-                    iiiApplication.currentUser = avUser;
+                    iiiApplication.currentUser = AVUser.getCurrentUser();
                     loginStatus = true;
                 } else {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -115,6 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText etUsername;
     private EditText etPassword;
     private Button btLogin;
+    private TextView tvLoginNews;
 
     private String loginUsername;
     private String loginPassword;

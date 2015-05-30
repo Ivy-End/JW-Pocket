@@ -10,5 +10,6 @@
     <string name="usernameHint">用户名</string>
     <string name="passwordHint">密码</string>
     <string name="login">登陆</string>
+    <string name="loginNews">没有帐号，查看新闻。</string>
 
 </resources>
