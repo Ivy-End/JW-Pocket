@@ -39,7 +39,7 @@
                 android:inputType="text"
                 android:hint="@string/usernameHint"
                 android:background="#FBFCFC"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp" />
 
             <EditText
                 android:id="@+id/password"

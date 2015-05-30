@@ -3,6 +3,9 @@ package com.jw.iii.pocketjw.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +16,23 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.jw.iii.pocketjw.Helper;
 import com.jw.iii.pocketjw.IIIApplication;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.jw.iii.pocketjw.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.List;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -52,16 +65,62 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tvLoginNews = (TextView)findViewById(R.id.loginNews);
 
         // 初始化
-        avatar.setImageResource(R.drawable.default_avatar);
-
         if (loginUsername != "") {
             // 自动填充用户名
             etUsername.setText(loginUsername);
         }
 
+        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        Bitmap bmp = Helper.getLocalBitmap(baseDir + File.pathSeparator + "face.png");
+        if (bmp != null) {
+            avatar.setImageBitmap(bmp);
+        } else {
+            avatar.setImageResource(R.drawable.default_avatar);
+        }
+
         // 监听事件
         btLogin.setOnClickListener(this);
         tvLoginNews.setOnClickListener(this);
+
+        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // 获取face图像
+                    loginUsername = etUsername.getText().toString();
+                    AVQuery<AVObject> query = new AVQuery<AVObject>("_User");
+                    query.whereEqualTo("username", loginUsername);
+                    query.findInBackground(new FindCallback<AVObject>() {
+                        public void done(List<AVObject> avObjects, AVException e) {
+                            if (e == null && avObjects.size() > 0) {
+                                AVObject avObject = avObjects.get(0);
+                                AVFile avFile = avObject.getAVFile("avatar");
+                                avFile.getDataInBackground(new GetDataCallback() {
+                                    @Override
+                                    public void done(byte[] bytes, AVException e) {
+                                        if(e == null && bytes.length > 0) {
+                                            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                            String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+                                            File faceFile = new File(baseDir + File.pathSeparator + "face.png");
+                                            FileOutputStream bmpWriter = null;
+                                            try {
+                                                bmpWriter = new FileOutputStream(faceFile);
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
+                                            }
+                                            bmp.compress(Bitmap.CompressFormat.PNG, 100, bmpWriter);
+                                            avatar.setImageBitmap(bmp);
+                                        }
+                                    }
+                                });
+                            } else {
+                                avatar.setImageResource(R.drawable.default_avatar);
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -71,7 +130,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 loginUsername = etUsername.getText().toString();
                 loginPassword = Helper.md5(etPassword.getText().toString());
                 login();
-
                 break;
             case R.id.loginNews:
 

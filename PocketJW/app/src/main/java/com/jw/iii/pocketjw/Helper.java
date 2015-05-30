@@ -1,5 +1,10 @@
 package com.jw.iii.pocketjw;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -31,6 +36,16 @@ public class Helper {
                 ex.printStackTrace();
             }
             return sb.toString();
+        }
+    }
+
+    public static Bitmap getLocalBitmap(String url) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fileInputStream);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
