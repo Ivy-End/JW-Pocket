@@ -1,7 +1,13 @@
 package com.jw.iii.pocketjw;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by End on 2015/5/29.

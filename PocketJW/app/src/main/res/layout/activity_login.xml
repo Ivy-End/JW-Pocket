@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical">
             <EditText
                 android:id="@+id/username"
@@ -54,20 +55,11 @@
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/loginMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="32dp"
-            android:textColor="@android:color/white"/>
-
         <Button
             android:id="@+id/login"
             android:layout_height="60dp"
             android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:paddingLeft="8dp"

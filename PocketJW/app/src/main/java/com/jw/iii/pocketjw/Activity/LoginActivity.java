@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
@@ -46,7 +47,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         avatar = (CircularImage)findViewById(R.id.default_avatar);
         etUsername = (EditText)findViewById(R.id.username);
         etPassword = (EditText)findViewById(R.id.password);
-        tvLoginMsg = (TextView)findViewById(R.id.loginMsg);
         btLogin = (Button)findViewById(R.id.login);
 
         // 初始化
@@ -66,8 +66,33 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.login:
                 loginUsername = etUsername.getText().toString();
-                loginPassword = Helper.md5(etPassword.getText().toString());
-                login();
+                loginPassword = etPassword.getText().toString();
+                // loginPassword = Helper.md5(etPassword.getText().toString());
+                // login();
+
+                AVObject gameScore = new AVObject("GameScore");
+                gameScore.put("score", 1400);
+                gameScore.put("playerName", "Robin");
+                gameScore.put("level", 20);
+                gameScore.put("gold", 32000);
+                gameScore.put("coin", 500);
+                gameScore.put("chapter", 15);
+                gameScore.put("stage", 8);
+                try {
+                    gameScore.save();
+                } catch (AVException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                /*AVQuery<AVObject> query = new AVQuery<AVObject>("User");
+                AVObject gameScore;
+                try {
+                    gameScore = query.get("553b9f17e4b039a50c0cd311");
+                    tvLoginMsg.setText(gameScore.getString("password"));
+                } catch (AVException e) {
+                    tvLoginMsg.setText(e.getMessage());
+                }*/
+
                 break;
             default:
                 break;
@@ -76,6 +101,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void login() {
         if (loginQuery()) {
+
+            // 保存登陆信息
+            SharedPreferences preferences = getSharedPreferences("jw_pref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("lastLoginUsername", loginUsername);
+            editor.putString("lastLoginUsername", loginPassword);
+
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -98,7 +130,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     loginStatus = true;
                 } else {
                     // 显示错误信息
-                    tvLoginMsg.setText(e.getMessage());
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     loginStatus = false;
                 }
             }
@@ -109,7 +141,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private CircularImage avatar;
     private EditText etUsername;
     private EditText etPassword;
-    private TextView tvLoginMsg;
     private Button btLogin;
 
     private String loginUsername;
