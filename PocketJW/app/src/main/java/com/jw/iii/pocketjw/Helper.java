@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -55,15 +57,11 @@ public class Helper {
         }
     }
 
-    public static void setActionBarLayout(Activity activity, int layoutId) {
-        ActionBar actionBar = activity.getActionBar();
-        if (null != actionBar) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
-            LayoutInflater layoutInflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = layoutInflater.inflate(layoutId, null);
-            ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
-            actionBar.setCustomView(view, layoutParams);
+    public static void setTabWidgetTitleColor(Context context, TabWidget tabWidget, int color) {
+        TextView textView = null;
+        for (int i = 0, count = tabWidget.getChildCount(); i < count; i++) {
+            textView = ((TextView) tabWidget.getChildAt(i).findViewById(android.R.id.title));
+            textView.setTextColor(context.getResources().getColorStateList(color));
         }
     }
 }
