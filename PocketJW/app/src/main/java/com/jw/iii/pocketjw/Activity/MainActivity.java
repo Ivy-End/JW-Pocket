@@ -9,10 +9,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.avos.avoscloud.*;    // 导入LeanCloud文件
 import com.jw.iii.pocketjw.*;
@@ -39,18 +42,17 @@ public class MainActivity extends ActionBarActivity {
 
     private void initView() {
 
-        frameLayout = (FrameLayout)findViewById(R.id.tabContent);
-
-        tabNews = new RadioButton(this);
-        tabNews.setButtonDrawable(R.drawable.news_tab_selector);
-        tabNews.setText("书院新闻");
-
-        frameLayout.addView(tabNews);
-
+        tabNews = (RadioButton) findViewById(R.id.tabNews);
+        tabNote = (RadioButton) findViewById(R.id.tabNote);
+        tabSolve = (RadioButton) findViewById(R.id.tabSolve);
+        tabVolunteer = (RadioButton) findViewById(R.id.tabVolunteer);
+        tabMore = (RadioButton)findViewById(R.id.tabMore);
     }
-
     private IIIApplication iiiApplication;
 
-    private FrameLayout frameLayout;
     private RadioButton tabNews;
+    private RadioButton tabNote;
+    private RadioButton tabSolve;
+    private RadioButton tabVolunteer;
+    private RadioButton tabMore;
 }

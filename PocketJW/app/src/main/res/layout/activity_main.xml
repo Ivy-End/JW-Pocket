@@ -7,10 +7,45 @@
         android:id="@+id/tabContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1" />
 
+    <RadioGroup
+        android:id="@+id/tabGroup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
+        <RadioButton
+            android:id="@+id/tabNews"
+            style="@style/tabStyle"
+            android:drawableTop="@drawable/news_tab_selector"
+            android:text="书院新闻"/>
 
-    </FrameLayout>
+        <RadioButton
+            android:id="@+id/tabNote"
+            style="@style/tabStyle"
+            android:drawableTop="@drawable/note_tab_selector"
+            android:text="通知发文"/>
+
+        <RadioButton
+            android:id="@+id/tabSolve"
+            style="@style/tabStyle"
+            android:drawableTop="@drawable/solve_tab_selector"
+            android:text="问题解答"/>
+
+        <RadioButton
+            android:id="@+id/tabVolunteer"
+            style="@style/tabStyle"
+            android:drawableTop="@drawable/volunteer_tab_selector"
+            android:text="书院义工"/>
+
+        <RadioButton
+            android:id="@+id/tabMore"
+            style="@style/tabStyle"
+            android:drawableTop="@drawable/more_tab_selector"
+            android:text="更多"/>
+
+    </RadioGroup>
 
 </LinearLayout>
