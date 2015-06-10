@@ -62,8 +62,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         avatar = (CircularImage)findViewById(R.id.default_avatar);
         etUsername = (EditText)findViewById(R.id.username);
         etPassword = (EditText)findViewById(R.id.password);
-        btLogin = (Button)findViewById(R.id.login);
-        tvLoginNews = (TextView)findViewById(R.id.loginNews);
+        Button btLogin = (Button) findViewById(R.id.login);
+        TextView tvLoginNews = (TextView) findViewById(R.id.loginNews);
 
         // 初始化
         if (loginUsername != "") {
@@ -188,8 +188,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private CircularImage avatar;
     private EditText etUsername;
     private EditText etPassword;
-    private Button btLogin;
-    private TextView tvLoginNews;
 
     private String loginUsername;
     private String loginPassword;

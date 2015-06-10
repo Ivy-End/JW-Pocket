@@ -1,41 +1,43 @@
-package com.jw.iii.pocketjw.UI;
+package com.jw.iii.pocketjw;
 
 /**
- * Created by End on 2015/5/31.
+ * Created by End on 2015/6/1.
  */
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
 
+/**
+ * @author fyales
+ */
 public class TabViewPagerAdapter extends FragmentPagerAdapter {
+
+    private final int PAGE_COUNT = 3;
+
+
+    private String mTabTitle[] = new String[]{"朝代","人物","战争"};
+    private Context mContext;
 
     public TabViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.mContext = context;
     }
 
-    public void addTabs(String strTab) {
-        pageList.add(strTab);
-    }
-
     @Override
     public Fragment getItem(int position) {
+
         return BaseFragment.newInstance(position);
     }
 
     @Override
     public int getCount() {
-        return pageList.size();
+        return PAGE_COUNT;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pageList.get(position);
+        return  mTabTitle[position];
     }
-
-    private Context mContext;
-    private ArrayList<String> pageList = new ArrayList<String>();
 }
