@@ -3,6 +3,7 @@ package com.jw.iii.pocketjw.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+
 import com.avos.avoscloud.*;    // 导入LeanCloud文件
 import com.jw.iii.pocketjw.*;
 import com.jw.iii.pocketjw.R;
@@ -35,30 +39,18 @@ public class MainActivity extends ActionBarActivity {
 
     private void initView() {
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        frameLayout = (FrameLayout)findViewById(R.id.tabContent);
 
-        // 设置ToolBar
-        toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.back);
-        setSupportActionBar(toolbar);
+        tabNews = new RadioButton(this);
+        tabNews.setButtonDrawable(R.drawable.news_tab_selector);
+        tabNews.setText("书院新闻");
 
-        // 设置Tab
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setAdapter(new TabViewPagerAdapter(getSupportFragmentManager(), MainActivity.this));
+        frameLayout.addView(tabNews);
 
-        SlidingTabLayout slidingTabLayout = (SlidingTabLayout)findViewById(R.id.slidingTabLayout);
-        slidingTabLayout.setDistributeEvenly(true);
-        slidingTabLayout.setViewPager(viewPager);
-
-        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorPrimaryDark);
-            }
-        });
     }
 
     private IIIApplication iiiApplication;
 
-    private Toolbar toolbar;
+    private FrameLayout frameLayout;
+    private RadioButton tabNews;
 }

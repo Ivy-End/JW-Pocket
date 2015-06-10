@@ -136,7 +136,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        intent = new Intent(LoginActivity.this, NewsActivity.class);
+                        intent = new Intent(LoginActivity.this, MainActivity.class);
                         LoginActivity.this.startActivity(intent);
                         LoginActivity.this.finish();
                     }
