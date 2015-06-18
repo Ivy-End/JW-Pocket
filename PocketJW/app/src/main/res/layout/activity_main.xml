@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <RadioButton
+        <!--<RadioButton
             android:id="@+id/tabNews"
             style="@style/tabStyle"
             android:drawableTop="@drawable/news_tab_selector"
@@ -44,7 +44,7 @@
             android:id="@+id/tabMore"
             style="@style/tabStyle"
             android:drawableTop="@drawable/more_tab_selector"
-            android:text="更多"/>
+            android:text="更多"/>-->
 
     </RadioGroup>
 
