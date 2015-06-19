@@ -1,7 +1,8 @@
 package com.jw.iii.pocketjw.Activity;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -9,13 +10,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 
 import com.avos.avoscloud.*;    // 导入LeanCloud文件
 import com.jw.iii.pocketjw.*;
@@ -27,7 +25,7 @@ import com.jw.iii.pocketjw.Fragment.VolunteerFragment;
 import com.jw.iii.pocketjw.R;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         initView();
 
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         selectTab(id_tabNews);
     }
@@ -108,7 +106,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     fragmentTransaction.show(newsFragment);
                 }
                 break;
-            case id_tabNote:
+            /*case id_tabNote:
                 if (noteFragment == null) {
                     noteFragment = new NoteFragment();
                     fragmentTransaction.add(R.id.tabContent, noteFragment);
@@ -139,7 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 } else {
                     fragmentTransaction.show(moreFragment);
                 }
-                break;
+                break;*/
             default:
                 break;
         }
@@ -150,7 +148,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (newsFragment != null) {
             fragmentTransaction.hide(newsFragment);
         }
-        if (noteFragment != null) {
+        /*if (noteFragment != null) {
             fragmentTransaction.hide(noteFragment);
         }
         if (solveFragment != null) {
@@ -161,7 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if (moreFragment != null) {
             fragmentTransaction.hide(moreFragment);
-        }
+        }*/
     }
 
     private IIIApplication iiiApplication;
@@ -185,5 +183,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private VolunteerFragment volunteerFragment;
     private MoreFragment moreFragment;
 
-    private android.app.FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
 }
