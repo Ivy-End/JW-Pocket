@@ -7,10 +7,20 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.jw.iii.pocketjw.IIIApplication;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.SlidingTabLayout;
 
 public class NewsFragment extends Fragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,7 +33,7 @@ public class NewsFragment extends Fragment {
         Context context = view.getContext();
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.newsContent);
-        viewPager.setAdapter(new com.jw.iii.pocketjw.PagerAdapter.NewsPagerAdapter(getChildFragmentManager(), context));
+        viewPager.setAdapter(new com.jw.iii.pocketjw.PagerAdapter.NewsPagerAdapter(getChildFragmentManager(), context, isLogin));
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.newsSliding);
         slidingTabLayout.setDistributeEvenly(true);
@@ -39,4 +49,6 @@ public class NewsFragment extends Fragment {
 
         return view;
     }
+
+    private boolean isLogin;
 }

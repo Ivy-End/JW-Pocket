@@ -1,7 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/text"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:text="@string/hello_world"
-    android:gravity="center" />
+    android:layout_width="match_parent">
+
+    <com.jw.iii.pocketjw.UI.RefreshableView
+        android:id="@+id/newsView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ListView
+            android:id="@+id/newsList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+
+        </ListView>
+
+    </com.jw.iii.pocketjw.UI.RefreshableView>
+
+</RelativeLayout>

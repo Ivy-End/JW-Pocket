@@ -101,6 +101,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case id_tabNews:
                 if (newsFragment == null) {
                     newsFragment = new NewsFragment();
+                    if (iiiApplication.currentUser != null) {
+                        newsFragment.setLogin(true);
+                    } else {
+                        newsFragment.setLogin(false);
+                    }
                     fragmentTransaction.add(R.id.tabContent, newsFragment);
                 } else {
                     fragmentTransaction.show(newsFragment);

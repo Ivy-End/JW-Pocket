@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="iiiActionStyle" parent="iiiActionStyle.Base" />
 
-    <style name="iiiActionStyle.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="iiiActionStyle.Base" parent="Theme.AppCompat.Light">
         <item name="android:actionBarDivider">@null</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
