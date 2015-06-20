@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.RefreshableView;
@@ -16,7 +14,6 @@ import com.jw.iii.pocketjw.UI.RefreshableView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by End on 2015/6/19.
@@ -29,9 +26,9 @@ public class NewsBaseFragment extends Fragment {
         View view = inflater.inflate(R.layout.base_fragment_news, container, false);
         refreshableView = (RefreshableView) view.findViewById(R.id.newsView);
         listView = (ListView) view.findViewById(R.id.newsList);
-        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("tvTitle", items[i]);
             list.add(hashMap);
         }

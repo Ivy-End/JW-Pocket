@@ -12,8 +12,10 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.avos.avoscloud.*;    // 导入LeanCloud文件
 import com.jw.iii.pocketjw.*;
@@ -73,7 +75,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         radioButton.setText(tabText);
         radioButton.setPadding(0, dipToPx(this, 8), 0, dipToPx(this, 4));
         radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-        radioButton.setButtonDrawable(null);
+        radioButton.setButtonDrawable(android.R.color.transparent);
         Resources resources = getBaseContext().getResources();
         ColorStateList colorStateList = resources.getColorStateList(R.color.text_color_tab_selector);
         radioButton.setTextColor(colorStateList);
