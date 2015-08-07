@@ -19,12 +19,15 @@ import android.widget.RelativeLayout;
 
 import com.avos.avoscloud.*;    // 导入LeanCloud文件
 import com.jw.iii.pocketjw.*;
+import com.jw.iii.pocketjw.DataAdapter.News;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
 import com.jw.iii.pocketjw.Fragment.NewsFragment;
 import com.jw.iii.pocketjw.Fragment.NoteFragment;
 import com.jw.iii.pocketjw.Fragment.SolveFragment;
 import com.jw.iii.pocketjw.Fragment.VolunteerFragment;
 import com.jw.iii.pocketjw.R;
+
+import java.util.List;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {

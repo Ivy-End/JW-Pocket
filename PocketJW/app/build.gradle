@@ -42,4 +42,5 @@ dependencies {
     compile files('libs/Java-WebSocket-1.2.0-leancloud.jar')
     compile files('libs/qq.sdk.1.6.1.jar')
     compile files('libs/weibo.sdk.android.sso.3.0.1-leancloud.jar')
+    compile files('libs/jsoup-1.8.2.jar')
 }
