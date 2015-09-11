@@ -1,51 +1,116 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
-        android:id="@+id/tabContent"
+        android:id="@+id/contentFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
-    <RadioGroup
-        android:id="@+id/tabGroup"
-        android:orientation="horizontal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:layout_height="60dp"
+        android:background="@android:color/white">
 
-        <!--<RadioButton
-            android:id="@+id/tabNews"
-            style="@style/tabStyle"
-            android:drawableTop="@drawable/news_tab_selector"
-            android:text="书院新闻"/>
+        <!-- News -->
+        <RelativeLayout
+            android:id="@+id/newsRelativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <RadioButton
-            android:id="@+id/tabNote"
-            style="@style/tabStyle"
-            android:drawableTop="@drawable/note_tab_selector"
-            android:text="通知发文"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/tabSolve"
-            style="@style/tabStyle"
-            android:drawableTop="@drawable/solve_tab_selector"
-            android:text="问题解答"/>
+                <ImageView
+                    android:id="@+id/newsImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/news_default"/>
+                
+                <TextView
+                    android:id="@+id/newsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/news"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/darker_gray"/>
 
-        <RadioButton
-            android:id="@+id/tabVolunteer"
-            style="@style/tabStyle"
-            android:drawableTop="@drawable/volunteer_tab_selector"
-            android:text="书院义工"/>
+            </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/tabMore"
-            style="@style/tabStyle"
-            android:drawableTop="@drawable/more_tab_selector"
-            android:text="更多"/>-->
+        </RelativeLayout>
 
-    </RadioGroup>
+        <!-- problems -->
+        <RelativeLayout
+            android:id="@+id/problemsRelativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/problemsImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/problem_default"/>
+
+                <TextView
+                    android:id="@+id/problemsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/problems"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/darker_gray"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- more -->
+        <RelativeLayout
+            android:id="@+id/moreRelativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/moreImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/more_default"/>
+
+                <TextView
+                    android:id="@+id/moreTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/darker_gray"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

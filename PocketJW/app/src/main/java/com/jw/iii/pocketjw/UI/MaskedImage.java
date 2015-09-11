@@ -12,9 +12,17 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by End on 2015/5/29.
+ * Created by End on 2015/9/5.
  */
 public abstract class MaskedImage extends ImageView {
+    private static final Xfermode MASK_XFERMODE;
+    private Bitmap mask;
+    private Paint paint;
+
+    static {
+        PorterDuff.Mode localMode = PorterDuff.Mode.DST_IN;
+        MASK_XFERMODE = new PorterDuffXfermode(localMode);
+    }
 
     public MaskedImage(Context paramContext) {
         super(paramContext);
@@ -65,15 +73,5 @@ public abstract class MaskedImage extends ImageView {
                     .append("Attempting to draw with recycled bitmap. View ID = ");
             System.out.println("localStringBuilder=="+localStringBuilder);
         }
-    }
-
-
-    private static final Xfermode MASK_XFERMODE;
-    private Bitmap mask;
-    private Paint paint;
-
-    static {
-        PorterDuff.Mode localMode = PorterDuff.Mode.DST_IN;
-        MASK_XFERMODE = new PorterDuffXfermode(localMode);
     }
 }

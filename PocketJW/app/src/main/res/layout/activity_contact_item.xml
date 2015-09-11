@@ -1,0 +1,42 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/phoneTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:textColor="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:textColor="@android:color/holo_blue_light" />
+
+    <Button
+        android:id="@+id/exportButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:text="@string/contact_export"
+        android:background="@color/primaryColor"
+        android:textColor="@android:color/white" />
+
+    </LinearLayout>

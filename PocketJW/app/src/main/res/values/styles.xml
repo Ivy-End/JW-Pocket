@@ -1,24 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="iiiActionStyle" parent="iiiActionStyle.Base" />
-
-    <style name="iiiActionStyle.Base" parent="Theme.AppCompat.Light">
-        <item name="android:actionBarDivider">@null</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:homeAsUpIndicator">@drawable/back_arrow</item>
+        <item name="android:actionBarStyle">@style/IIIActionBarStyle</item>
     </style>
 
-    <style name="tabStyle">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:paddingTop">8dip</item>
-        <item name="android:paddingBottom">4dip</item>
-        <item name="android:textColor">@color/text_color_tab_selector</item>
-        <item name="android:button">@null</item>
+    <style name="IIIActionBarStyle" parent="android:Widget.Holo.Light.ActionBar">
+        <item name="android:displayOptions">showTitle</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:titleTextStyle">@style/IIIActionBarStyle.TitleTextStyle</item>
+        <item name="android:backgroundSplit">@color/primaryColorDark</item>
+    </style>
+    
+    <style name="IIIActionBarStyle.TitleTextStyle">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

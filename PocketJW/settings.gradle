@@ -1,1 +1,7 @@
-include ':app'
+include ':app', ':PullToRefresh', ':SlidingMenu'
+
+include ':libraries/PullToRefresh'
+project(':PullToRefresh').projectDir = new File('libraries/PullToRefresh')
+
+include ':libraries/SlidingMenu'
+project(':SlidingMenu').projectDir = new File('libraries/SlidingMenu')

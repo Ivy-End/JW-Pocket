@@ -4,6 +4,11 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
     defaultConfig {
         applicationId "com.jw.iii.pocketjw"
         minSdkVersion 15
@@ -17,30 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    packagingOptions {
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/LICENSE.txt'
-    }
-    lintOptions {
-        abortOnError false
-    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile files('libs/android-async-http-1.4.6.jar')
-    compile files('libs/avoscloud-feedback-v3.3.2.jar')
-    compile files('libs/avoscloud-push-v3.3.2.jar')
-    compile files('libs/avoscloud-sdk-v3.3.2.jar')
-    compile files('libs/avoscloud-search-v3.3.2.jar')
-    compile files('libs/avoscloud-sns-v3.3.2.jar')
-    compile files('libs/avoscloud-statistics-v3.3.2.jar')
-    compile files('libs/fastjson.jar')
-    compile files('libs/httpmime-4.2.4.jar')
-    compile files('libs/Java-WebSocket-1.2.0-leancloud.jar')
-    compile files('libs/qq.sdk.1.6.1.jar')
-    compile files('libs/weibo.sdk.android.sso.3.0.1-leancloud.jar')
-    compile files('libs/jsoup-1.8.2.jar')
+    compile project(':libraries/PullToRefresh')
+    compile project(':libraries/SlidingMenu')
+    compile files('libs/universal-image-loader-1.9.4.jar')
 }

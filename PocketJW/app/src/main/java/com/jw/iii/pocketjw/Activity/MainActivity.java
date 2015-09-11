@@ -1,197 +1,189 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.avos.avoscloud.*;    // 导入LeanCloud文件
-import com.jw.iii.pocketjw.*;
-import com.jw.iii.pocketjw.DataAdapter.News;
+import com.avos.avoscloud.AVUser;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
 import com.jw.iii.pocketjw.Fragment.NewsFragment;
-import com.jw.iii.pocketjw.Fragment.NoteFragment;
-import com.jw.iii.pocketjw.Fragment.SolveFragment;
-import com.jw.iii.pocketjw.Fragment.VolunteerFragment;
+import com.jw.iii.pocketjw.Fragment.ProblemsFragment;
 import com.jw.iii.pocketjw.R;
+import com.jw.iii.pocketjw.UI.CircularImage;
 
-import java.util.List;
-
+import java.util.zip.Inflater;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.jw.iii.pocketjw.R.layout.activity_main);
-
-        // 初始化IIIApplication
-        iiiApplication = (IIIApplication)getApplication();
-
-        // 以下两行连接LeanCloud，切勿修改
-        AVOSCloud.initialize(this, "dohthw768v153y9t2eldqiwvtwf9vu07vvyzxv4kjdqbpdsf", "gs5r4j0xg7wg0xkmvjrgdv4gt1hxiaqxpso3jfzani5w8hhk");
-        AVAnalytics.trackAppOpened(getIntent());
-
-        initView();
+        setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
 
-        selectTab(id_tabNews);
+        initView();
+        initSlidingMenu();
+
+        setChoiceItem(0);
     }
 
     private void initView() {
-        tabGroup = (RadioGroup) findViewById(R.id.tabGroup);
-        tabNews = getTabView(id_tabNews, "书院新闻", R.drawable.news_tab_selector);
-        tabNote = getTabView(id_tabNote, "通知发文", R.drawable.note_tab_selector);
-        tabSolve = getTabView(id_tabSolve, "问题解答", R.drawable.solve_tab_selector);
-        tabVolunteer = getTabView(id_tabVolunteer, "书院义工", R.drawable.volunteer_tab_selector);
-        tabMore = getTabView(id_tabMore, "更多", R.drawable.more_tab_selector);
+        newsRelativeLayout = (RelativeLayout)findViewById(R.id.newsRelativeLayout);
+        newsImageView = (ImageView)findViewById(R.id.newsImageView);
+        newsTextView = (TextView)findViewById(R.id.newsTextView);
+        problemsRelativeLayout = (RelativeLayout)findViewById(R.id.problemsRelativeLayout);
+        problemsImageView = (ImageView)findViewById(R.id.problemsImageView);
+        problemsTextView = (TextView)findViewById(R.id.problemsTextView);
+        moreRelativeLayout = (RelativeLayout)findViewById(R.id.moreRelativeLayout);
+        moreImageView = (ImageView)findViewById(R.id.moreImageView);
+        moreTextView = (TextView)findViewById(R.id.moreTextView);
+        newsRelativeLayout.setOnClickListener(this);
+        problemsRelativeLayout.setOnClickListener(this);
+        moreRelativeLayout.setOnClickListener(this);
+    }
 
-        tabGroup.addView(tabNews);
-        if (iiiApplication.currentUser != null) {
-            tabGroup.addView(tabNote);
-            tabGroup.addView(tabSolve);
-            tabGroup.addView(tabVolunteer);
+    private void initSlidingMenu() {
+        slidingMenu = new SlidingMenu(this);
+        slidingMenu.setMode(SlidingMenu.LEFT);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
+        slidingMenu.setShadowDrawable(R.drawable.slidingmenu_shadow);
+        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        slidingMenu.setBehindWidth(640);
+        slidingMenu.setFadeDegree(0.35f);
+        slidingMenu.setFadeEnabled(true);
+        slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        slidingMenu.setMenu(R.layout.slidingmenu_main);
+
+
+        CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
+        nameTextView = (TextView)findViewById(R.id.nameTextView);
+
+
+        gravatar.setImageResource(R.drawable.gravatar);
+        nameTextView.setText(AVUser.getCurrentUser().get("name").toString());
+    }
+
+    private void setChoiceItem(int index) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        clearChoice();
+        hideFragments(transaction);
+
+        switch (index) {
+            case 0:
+                newsImageView.setImageResource(R.drawable.news_hover);
+                newsTextView.setTextColor(getResources().getColor(R.color.primaryColor));
+                if (newsFragment == null) {
+                    newsFragment = new NewsFragment();
+                    transaction.add(R.id.contentFrameLayout, newsFragment);
+                } else {
+                    transaction.show(newsFragment);
+                }
+                break;
+            case 1:
+                problemsImageView.setImageResource(R.drawable.problem_hover);
+                problemsTextView.setTextColor(getResources().getColor(R.color.primaryColor));
+                if (problemsFragment == null) {
+                    problemsFragment = new ProblemsFragment();
+                    transaction.add(R.id.contentFrameLayout, problemsFragment);
+                } else {
+                    transaction.show(problemsFragment);
+                }
+                break;
+            case 2:
+                moreImageView.setImageResource(R.drawable.more_hover);
+                moreTextView.setTextColor(getResources().getColor(R.color.primaryColor));
+                if (moreFragment == null) {
+                    moreFragment = new MoreFragment();
+                    transaction.add(R.id.contentFrameLayout, moreFragment);
+                } else {
+                    transaction.show(moreFragment);
+                }
+                break;
         }
-        tabGroup.addView(tabMore);
+        transaction.commit();
     }
 
-    private RadioButton getTabView(int id, String tabText, int tabDrawable) {
-        RadioButton radioButton = new RadioButton(this);
-        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.weight = 1;
-        radioButton.setId(id);
-        radioButton.setLayoutParams(layoutParams);
-        radioButton.setGravity(Gravity.CENTER);
-        radioButton.setText(tabText);
-        radioButton.setPadding(0, dipToPx(this, 8), 0, dipToPx(this, 4));
-        radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-        radioButton.setButtonDrawable(android.R.color.transparent);
-        Resources resources = getBaseContext().getResources();
-        ColorStateList colorStateList = resources.getColorStateList(R.color.text_color_tab_selector);
-        radioButton.setTextColor(colorStateList);
-        Drawable drawable = this.getResources().getDrawable(tabDrawable);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        radioButton.setCompoundDrawables(null, drawable, null, null);
-        radioButton.setOnClickListener(this);
-        return radioButton;
+    private void clearChoice() {
+        newsImageView.setImageResource(R.drawable.news_default);
+        newsTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        problemsImageView.setImageResource(R.drawable.problem_default);
+        problemsTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        moreImageView.setImageResource(R.drawable.more_default);
+        moreTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
     }
 
-    private int dipToPx(Context context, double dip){
-        final double scale = context.getResources().getDisplayMetrics().density;
-        return (int)(dip * scale + 0.5f);
+    private void hideFragments(FragmentTransaction transaction) {
+        if (newsFragment != null) {
+            transaction.hide(newsFragment);
+        }
+        if (problemsFragment != null) {
+            transaction.hide(problemsFragment);
+        }
+        if (moreFragment != null) {
+            transaction.hide(moreFragment);
+        }
     }
 
     @Override
     public void onClick(View v) {
-        selectTab(v.getId());
-    }
-
-    private void selectTab(int index) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        hideFragment(fragmentTransaction);
-        switch (index) {
-            case id_tabNews:
-                if (newsFragment == null) {
-                    newsFragment = new NewsFragment();
-                    if (iiiApplication.currentUser != null) {
-                        newsFragment.setLogin(true);
-                    } else {
-                        newsFragment.setLogin(false);
-                    }
-                    fragmentTransaction.add(R.id.tabContent, newsFragment);
-                } else {
-                    fragmentTransaction.show(newsFragment);
-                }
+        switch (v.getId()) {
+            case R.id.newsRelativeLayout:
+                setChoiceItem(0);
                 break;
-            /*case id_tabNote:
-                if (noteFragment == null) {
-                    noteFragment = new NoteFragment();
-                    fragmentTransaction.add(R.id.tabContent, noteFragment);
-                } else {
-                    fragmentTransaction.show(noteFragment);
-                }
+            case R.id.problemsRelativeLayout:
+                setChoiceItem(1);
                 break;
-            case id_tabSolve:
-                if (solveFragment == null) {
-                    solveFragment = new SolveFragment();
-                    fragmentTransaction.add(R.id.tabContent, solveFragment);
-                } else {
-                    fragmentTransaction.show(solveFragment);
-                }
+            case R.id.moreRelativeLayout:
+                setChoiceItem(2);
                 break;
-            case id_tabVolunteer:
-                if (volunteerFragment == null) {
-                    volunteerFragment = new VolunteerFragment();
-                    fragmentTransaction.add(R.id.tabContent, volunteerFragment);
-                } else {
-                    fragmentTransaction.show(volunteerFragment);
-                }
-                break;
-            case id_tabMore:
-                if (moreFragment == null) {
-                    moreFragment = new MoreFragment();
-                    fragmentTransaction.add(R.id.tabContent, moreFragment);
-                } else {
-                    fragmentTransaction.show(moreFragment);
-                }
-                break;*/
             default:
                 break;
         }
-        fragmentTransaction.commit();
     }
 
-    private void hideFragment(FragmentTransaction fragmentTransaction) {
-        if (newsFragment != null) {
-            fragmentTransaction.hide(newsFragment);
-        }
-        /*if (noteFragment != null) {
-            fragmentTransaction.hide(noteFragment);
-        }
-        if (solveFragment != null) {
-            fragmentTransaction.hide(solveFragment);
-        }
-        if (volunteerFragment != null) {
-            fragmentTransaction.hide(volunteerFragment);
-        }
-        if (moreFragment != null) {
-            fragmentTransaction.hide(moreFragment);
-        }*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
-    private IIIApplication iiiApplication;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-    private static final int id_tabNews = 0x7f081000;
-    private static final int id_tabNote = 0x7f081001;
-    private static final int id_tabSolve = 0x7f081002;
-    private static final int id_tabVolunteer = 0x7f081003;
-    private static final int id_tabMore = 0x7f081004;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
 
-    private RadioGroup tabGroup;
-    private RadioButton tabNews;
-    private RadioButton tabNote;
-    private RadioButton tabSolve;
-    private RadioButton tabVolunteer;
-    private RadioButton tabMore;
+        return super.onOptionsItemSelected(item);
+    }
 
-    private NewsFragment newsFragment;
-    private NoteFragment noteFragment;
-    private SolveFragment solveFragment;
-    private VolunteerFragment volunteerFragment;
-    private MoreFragment moreFragment;
-
+    private TextView nameTextView;
+    private Fragment newsFragment, problemsFragment, moreFragment;
+    private FrameLayout contentFrameLayout;
+    private RelativeLayout newsRelativeLayout, problemsRelativeLayout, moreRelativeLayout;
+    private ImageView newsImageView, problemsImageView, moreImageView;
+    private TextView newsTextView, problemsTextView, moreTextView;
     private FragmentManager fragmentManager;
+
+    private SlidingMenu slidingMenu;
 }

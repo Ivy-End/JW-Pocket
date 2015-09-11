@@ -1,0 +1,103 @@
+<RelativeLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/fieldLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp">
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:singleLine="true"
+            android:hint="@string/usernameHint"/>
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="@string/passwordHint"/>
+
+        <EditText
+            android:id="@+id/repeatPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="@string/repeatPasswordHint"/>
+
+        <EditText
+            android:id="@+id/studentIDEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:hint="@string/studentIDHint"/>
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="text"
+            android:singleLine="true"
+            android:hint="@string/nameHint"/>
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:hint="@string/emailHint"/>
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:hint="@string/phoneHint"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:text="@string/register"
+        android:background="@color/primaryColor"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>

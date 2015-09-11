@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jw.iii.pocketjw.Activity.NewsItemActivity">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/share"
+        android:showAsAction="always"
+        android:title="@string/action_share"/>
+</menu>
