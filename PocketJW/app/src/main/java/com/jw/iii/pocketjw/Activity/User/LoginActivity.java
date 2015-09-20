@@ -15,8 +15,6 @@ import com.jw.iii.pocketjw.Activity.News.NewsActivity;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
 
-import java.util.List;
-
 
 public class LoginActivity extends IIIActivity {
 
@@ -26,9 +24,8 @@ public class LoginActivity extends IIIActivity {
         setContentView(R.layout.activity_login);
 
         CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
-        gravatar.setImageResource(R.drawable.gravatar);
+        gravatar.setImageResource(R.drawable.ic_launcher);
 
-        gravatar = (CircularImage)findViewById(R.id.gravatar);
         loginButton = (Button)findViewById(R.id.loginButton);
         usernameEditText = (EditText)findViewById(R.id.usernameEditText);
         passwordEditText = (EditText)findViewById(R.id.passwordEditText);
@@ -104,6 +101,7 @@ public class LoginActivity extends IIIActivity {
         }
     };
 
+    CircularImage gravatar;
     private Button loginButton;
     private EditText usernameEditText, passwordEditText;
     private TextView registerTextView, forgetPasswordTextView, tourTextView;

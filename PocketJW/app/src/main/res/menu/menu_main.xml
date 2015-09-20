@@ -2,6 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jw.iii.pocketjw.Activity.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_problem_add"
+        android:icon="@drawable/add"
+        android:showAsAction="always"
+        android:title="@string/action_problem_add" />
 </menu>

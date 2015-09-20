@@ -30,5 +30,6 @@
     <string name="title_activity_contact">通讯录</string>
     <string name="title_activity_contact_item">通讯录</string>
     <string name="contact_export">导出联系人</string>
+    <string name="action_problem_add">添加问题</string>
 
 </resources>

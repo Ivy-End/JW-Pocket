@@ -1,5 +1,6 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,6 +21,9 @@ import com.jw.iii.pocketjw.Fragment.NoticeFragment;
 import com.jw.iii.pocketjw.Fragment.ProblemsFragment;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -64,13 +68,36 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.slidingmenu_main);
 
+        loadGravatar();
 
-        CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
         nameTextView = (TextView)findViewById(R.id.nameTextView);
-
-
-        gravatar.setImageResource(R.drawable.gravatar);
         nameTextView.setText(AVUser.getCurrentUser().get("name").toString());
+    }
+
+    private void loadGravatar() {
+
+        final CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
+        ImageLoader.getInstance().loadImage(AVUser.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                gravatar.setImageResource(R.drawable.ic_launcher);
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                gravatar.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                gravatar.setImageResource(R.drawable.ic_launcher);
+            }
+        });
     }
 
     private void setChoiceItem(int index) {
@@ -165,12 +192,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private TextView nameTextView;
