@@ -3,59 +3,98 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- contact -->
     <LinearLayout
-        android:id="@+id/contactLinearLayout"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_marginBottom="1dp">
+        android:layout_marginBottom="2dp">
 
-        <ImageView
-            android:id="@+id/contactImageView"
-            android:layout_width="wrap_content"
+        <!-- news -->
+        <LinearLayout
+            android:id="@+id/newsLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp"
-            android:src="@drawable/more_contact"/>
+            android:background="@android:color/white">
 
-        <TextView
-            android:id="@+id/contactTextView"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/newsImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:src="@drawable/more_news"/>
+
+            <TextView
+                android:id="@+id/newsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_news"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <!-- contact -->
+        <LinearLayout
+            android:id="@+id/contactLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/more_contact"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp" />
+            android:background="@android:color/white">
 
+            <ImageView
+                android:id="@+id/contactImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:src="@drawable/more_contact"/>
+
+            <TextView
+                android:id="@+id/contactTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_contact"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- logout -->
+
     <LinearLayout
-        android:id="@+id/logoutLinearLayout"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp">
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
 
-        <ImageView
-            android:id="@+id/logoutImageView"
-            android:layout_width="wrap_content"
+        <!-- logout -->
+        <LinearLayout
+            android:id="@+id/logoutLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp"
-            android:src="@drawable/more_logout"/>
+            android:background="@android:color/white">
 
-        <TextView
-            android:id="@+id/logoutTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/more_logout"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp" />
+            <ImageView
+                android:id="@+id/logoutImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:src="@drawable/more_logout"/>
 
+            <TextView
+                android:id="@+id/logoutTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_logout"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

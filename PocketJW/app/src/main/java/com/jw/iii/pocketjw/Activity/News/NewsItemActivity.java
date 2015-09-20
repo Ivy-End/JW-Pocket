@@ -1,4 +1,4 @@
-package com.jw.iii.pocketjw.Activity;
+package com.jw.iii.pocketjw.Activity.News;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,7 +24,6 @@ public class NewsItemActivity extends Activity {
         Intent newsItemIntent = getIntent();
         newsTitle = newsItemIntent.getStringExtra("newsTitle");
         newsUrl = newsItemIntent.getStringExtra("newsUrl");
-        newsID = newsItemIntent.getStringExtra("newsID");
         newsContent = newsItemIntent.getStringExtra("newsContent");
 
         titleTextView = (TextView)findViewById(R.id.titleTextView);
@@ -69,7 +68,7 @@ public class NewsItemActivity extends Activity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "敬文书院");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, newsTitle + "  " + newsUrl);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, newsTitle + "  " + newsUrl + "\n（来自掌上敬文）");
                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(shareIntent, "分享"));
                 return true;
@@ -78,6 +77,6 @@ public class NewsItemActivity extends Activity {
         }
     }
 
-    private String newsTitle, newsUrl, newsID, newsContent;
+    private String newsTitle, newsUrl, newsContent;
     private TextView titleTextView, contentTextView;
 }

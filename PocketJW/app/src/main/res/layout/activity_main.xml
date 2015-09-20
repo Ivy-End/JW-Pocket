@@ -15,9 +15,9 @@
         android:layout_height="60dp"
         android:background="@android:color/white">
 
-        <!-- News -->
+        <!-- Notice -->
         <RelativeLayout
-            android:id="@+id/newsRelativeLayout"
+            android:id="@+id/noticeRelativeLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -29,17 +29,17 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/newsImageView"
+                    android:id="@+id/noticeImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/news_default"/>
+                    android:src="@drawable/notice_default"/>
                 
                 <TextView
-                    android:id="@+id/newsTextView"
+                    android:id="@+id/noticeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/news"
+                    android:text="@string/notice"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@android:color/darker_gray"/>
 

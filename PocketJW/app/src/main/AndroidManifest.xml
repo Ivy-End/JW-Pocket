@@ -43,20 +43,16 @@
             android:label="@string/title_activity_forget_password" >
         </activity>
         <activity
-            android:name=".Activity.TourActivity"
+            android:name=".Activity.News.NewsActivity"
             android:label="@string/title_activity_tour" >
         </activity>
         <activity
-            android:name=".Activity.NewsItemActivity"
+            android:name=".Activity.News.NewsItemActivity"
             android:label="@string/title_activity_news_item" >
         </activity>
         <activity
             android:name=".Activity.More.ContactActivity"
             android:label="@string/title_activity_contact" >
-        </activity>
-        <activity
-            android:name=".Activity.More.contactItem"
-            android:label="@string/title_activity_contact_item" >
         </activity>
         <activity
             android:name=".Activity.More.contactItemActivity"

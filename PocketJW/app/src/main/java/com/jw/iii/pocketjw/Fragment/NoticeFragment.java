@@ -12,10 +12,10 @@ import com.jw.iii.pocketjw.R;
 /**
  * Created by End on 2015/9/9.
  */
-public class NewsFragment extends Fragment {
+public class NoticeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice, container, false);
         return view;
     }
 }

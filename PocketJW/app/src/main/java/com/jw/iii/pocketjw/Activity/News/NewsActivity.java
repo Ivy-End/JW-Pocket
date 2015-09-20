@@ -1,4 +1,4 @@
-package com.jw.iii.pocketjw.Activity;
+package com.jw.iii.pocketjw.Activity.News;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,15 +18,15 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.jw.iii.pocketjw.Helper.News.NewsItem;
+import com.jw.iii.pocketjw.Helper.News.NewsItemAdapter;
 import com.jw.iii.pocketjw.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
-public class TourActivity extends Activity {
+public class NewsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +34,32 @@ public class TourActivity extends Activity {
         setContentView(R.layout.activity_tour);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        initView();
+    }
+
+    public void initView() {
         newsListView = (PullToRefreshListView)findViewById(R.id.newsListView);
         newsListView.setMode(PullToRefreshBase.Mode.BOTH);
         newsListView.setOnRefreshListener(newsListener);
         newsListView.setOnItemClickListener(newsItemListener);
 
-        newsItems = new LinkedList<>();
+        newsItems = new ArrayList<>();
         newsItemsTmp = new ArrayList<>();
-
-        newsAdapter = new SimpleAdapter(this, newsItems,
-                R.layout.listviewitem_news, new String[]{"imgImageView", "titleTextView", "dateTextView"},
-                new int[]{R.id.imgImageView, R.id.titleTextView, R.id.dateTextView});
-        newsListView.setAdapter(newsAdapter);
+        newsItemAdapter = new NewsItemAdapter(newsItems, this, ImageLoader.getInstance());
+        newsListView.setAdapter(newsItemAdapter);
     }
+
 
     public class GetHeaderDataTask extends AsyncTask<Void, Void, String[]> {
         @Override
         protected String[] doInBackground(Void... params) {
-            getData();
+            getDataHeader();
             return new String[0];
         }
 
         @Override
         protected void onPostExecute(String[] strings) {
-            parseData();
+            parseDataHeader();
             newsListView.onRefreshComplete();
             super.onPostExecute(strings);
         }
@@ -81,66 +81,46 @@ public class TourActivity extends Activity {
         }
     }
 
+    private void getDataHeader() {
+        page = 0;
+        getData();
+    }
+
     private void getData() {
-        AVQuery<AVObject> query = new AVQuery<>("News");
-        query.setSkip(page * PAGE_COUNT);
-        query.setLimit(PAGE_COUNT);
+        final AVQuery<AVObject> query = new AVQuery<>("News").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException e) {
                 if (e != null) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
-                    for (AVObject object : avObjects) {
-                        HashMap<String, Object> news = new HashMap<>();
-                        AVFile file = object.getAVFile("thumbnail");
-                        news.put("imgUrl", file.getThumbnailUrl(true, 72, 54));
-                        news.put("imgImageView", R.drawable.ic_launcher);
-                        news.put("titleTextView", object.get("title"));
-                        news.put("dateTextView", object.get("postDate"));
-                        news.put("shareUrl", object.get("shareUrl"));
-                        news.put("content", object.get("content"));
-                        news.put("objectId", object.getObjectId());
-                        newsItemsTmp.add(news);
+                    if (avObjects.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "没有更多新闻", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for (AVObject object : avObjects) {
+                            AVFile file = object.getAVFile("thumbnail");
+                            NewsItem newsItem = new NewsItem(file.getUrl(), object.get("title").toString(),
+                                    object.get("postDate").toString(), object.get("content").toString());
+                            newsItemsTmp.add(newsItem);
+                        }
                     }
                 }
             }
         });
     }
 
+    private void parseDataHeader() {
+        newsItems.clear();
+        newsItemAdapter.notifyDataSetChanged();
+        parseData();
+    }
+
     private void parseData() {
-        for (HashMap<String, Object> map : newsItemsTmp) {
-            newsItems.add(map);
-            newsAdapter.notifyDataSetChanged();
+        for (NewsItem newsItem : newsItemsTmp) {
+            newsItems.add(newsItem);
+            newsItemAdapter.notifyDataSetChanged();
         }
         newsItemsTmp.clear();
-        updateImageView();
-    }
-
-    private void updateImageView() {
-
-        ListView newsListViewTmp = newsListView.getRefreshableView();
-
-        for (int i = 0; i < newsListViewTmp.getCount(); i++) {
-            if (!newsItems.get(i).containsKey("isSetImg")) {
-                View view = getNewsListViewChild(i, newsListViewTmp);
-                ImageView imgImageView = (ImageView)view.findViewById(R.id.imgImageView);
-                ImageLoader.getInstance().displayImage(newsItems.get(i).get("imgUrl").toString(), imgImageView);
-                newsItems.get(i).put("isSetImg", true);
-            }
-        }
-    }
-
-    private View getNewsListViewChild(int index, ListView listView) {
-        final int firstItemPosition = listView.getFirstVisiblePosition();
-            final int lastItemPosition = firstItemPosition + listView.getChildCount() - 1;
-
-            if (index < firstItemPosition || index > lastItemPosition) {
-                return listView.getAdapter().getView(index, null, listView);
-            } else {
-                final int childIndex = index - firstItemPosition;
-                return listView.getChildAt(childIndex);
-        }
     }
 
     @Override
@@ -175,20 +155,19 @@ public class TourActivity extends Activity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Toast.makeText(getApplicationContext(), ((TextView)view.findViewById(R.id.titleTextView)).getText().toString(), Toast.LENGTH_SHORT).show();
-            Intent newsItemIntent = new Intent(TourActivity.this, NewsItemActivity.class);
-            newsItemIntent.putExtra("newsTitle", newsItems.get(position - 1).get("titleTextView").toString());
-            newsItemIntent.putExtra("newsUrl", newsItems.get(position - 1).get("shareUrl").toString());
-            newsItemIntent.putExtra("newsID", newsItems.get(position - 1).get("objectId").toString());
-            newsItemIntent.putExtra("newsContent", newsItems.get(position - 1).get("content").toString());
+            Intent newsItemIntent = new Intent(NewsActivity.this, NewsItemActivity.class);
+            newsItemIntent.putExtra("newsTitle", newsItems.get(position - 1).getTitle());
+            newsItemIntent.putExtra("newsUrl", newsItems.get(position - 1).getImgUrl());
+            newsItemIntent.putExtra("newsContent", newsItems.get(position - 1).getContent());
             startActivity(newsItemIntent);
         }
     };
 
     final private int PAGE_COUNT = 10;
-    private int page = 0, newsImgCount = 0;
+    private int page = 0;
     private int prevLocation = 0;
-    private SimpleAdapter newsAdapter;
-    private LinkedList<HashMap<String, Object>> newsItems;
-    private ArrayList<HashMap<String, Object>> newsItemsTmp;
+
+    private ArrayList<NewsItem> newsItems, newsItemsTmp;
+    private NewsItemAdapter newsItemAdapter;
     private PullToRefreshListView newsListView;
 }

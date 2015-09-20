@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.avos.avoscloud.AVUser;
 import com.jw.iii.pocketjw.Activity.MainActivity;
 import com.jw.iii.pocketjw.Activity.More.ContactActivity;
+import com.jw.iii.pocketjw.Activity.News.NewsActivity;
 import com.jw.iii.pocketjw.Activity.User.LoginActivity;
 import com.jw.iii.pocketjw.R;
 
@@ -23,14 +24,24 @@ public class MoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_more, container, false);
 
+        newsLinearLayout = (LinearLayout)view.findViewById(R.id.newsLinearLayout);
         contactLinearLayout = (LinearLayout)view.findViewById(R.id.contactLinearLayout);
         logoutLinearLayout = (LinearLayout)view.findViewById(R.id.logoutLinearLayout);
 
+        newsLinearLayout.setOnClickListener(newsListner);
         contactLinearLayout.setOnClickListener(contactListener);
         logoutLinearLayout.setOnClickListener(logoutListener);
 
         return view;
     }
+
+    View.OnClickListener newsListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
+            getActivity().startActivity(newsIntent);
+        }
+    };
 
     View.OnClickListener contactListener = new View.OnClickListener() {
         @Override
@@ -50,5 +61,5 @@ public class MoreFragment extends Fragment {
         }
     };
 
-    private LinearLayout contactLinearLayout, logoutLinearLayout;
+    private LinearLayout newsLinearLayout, contactLinearLayout, logoutLinearLayout;
 }

@@ -3,7 +3,6 @@ package com.jw.iii.pocketjw.Activity.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,9 +11,11 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.jw.iii.pocketjw.Activity.MainActivity;
-import com.jw.iii.pocketjw.Activity.TourActivity;
+import com.jw.iii.pocketjw.Activity.News.NewsActivity;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
+
+import java.util.List;
 
 
 public class LoginActivity extends IIIActivity {
@@ -27,6 +28,7 @@ public class LoginActivity extends IIIActivity {
         CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
         gravatar.setImageResource(R.drawable.gravatar);
 
+        gravatar = (CircularImage)findViewById(R.id.gravatar);
         loginButton = (Button)findViewById(R.id.loginButton);
         usernameEditText = (EditText)findViewById(R.id.usernameEditText);
         passwordEditText = (EditText)findViewById(R.id.passwordEditText);
@@ -97,7 +99,7 @@ public class LoginActivity extends IIIActivity {
     View.OnClickListener tourListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent tourIntent = new Intent(activity, TourActivity.class);
+            Intent tourIntent = new Intent(activity, NewsActivity.class);
             startActivity(tourIntent);
         }
     };

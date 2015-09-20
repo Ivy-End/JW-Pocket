@@ -21,7 +21,10 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.jw.iii.pocketjw.Helper.Contact.ContactItem;
+import com.jw.iii.pocketjw.Helper.Contact.ContactItemAdapter;
 import com.jw.iii.pocketjw.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,19 +39,19 @@ public class ContactActivity extends Activity {
         setContentView(R.layout.activity_contact);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        initView();
+    }
+
+    private void initView() {
         contactListView = (PullToRefreshListView)findViewById(R.id.contactListView);
         contactListView.setMode(PullToRefreshBase.Mode.BOTH);
         contactListView.setOnRefreshListener(contactListener);
         contactListView.setOnItemClickListener(contactItemListener);
 
-        contactItems = new LinkedList<>();
+        contactItems = new ArrayList<>();
         contactItemsTmp = new ArrayList<>();
-
-        contactAdapter = new SimpleAdapter(this, contactItems,
-                R.layout.listviewitem_contact, new String[]{"imgImageView", "nameTextView", "phoneTextView"},
-                new int[]{R.id.imgImageView, R.id.nameTextView, R.id.phoneTextView});
-        contactListView.setAdapter(contactAdapter);
-
+        contactItemAdapter = new ContactItemAdapter(contactItems, this, ImageLoader.getInstance());
+        contactListView.setAdapter(contactItemAdapter);
     }
 
     @Override
@@ -99,24 +102,22 @@ public class ContactActivity extends Activity {
     }
 
     private void getData() {
-        AVQuery<AVObject> query = new AVQuery<>("_User");
-        query.setSkip(page * PAGE_COUNT);
-        query.setLimit(PAGE_COUNT);
+        AVQuery<AVObject> query = new AVQuery<>("_User").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException e) {
                 if (e != null) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
-                    for(AVObject object : avObjects) {
-                        HashMap<String, Object> contact = new HashMap<>();
-
-                        contact.put("imgImageView", R.drawable.gravatar);
-                        contact.put("nameTextView", object.get("name"));
-                        contact.put("phoneTextView", object.get("mobilePhoneNumber"));
-                        contact.put("emailTextView", object.get("email"));
-                        contact.put("objectId", object.getObjectId());
-                        contactItemsTmp.add(contact);
+                    if (avObjects.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "没有更多的联系人", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for(AVObject object : avObjects) {
+                            AVFile file = object.getAVFile("gravatar");
+                            ContactItem contactItem = new ContactItem(file.getUrl(), object.get("name").toString(),
+                                    object.get("mobilePhoneNumber").toString(), object.get("email").toString());
+                            contactItemsTmp.add(contactItem);
+                        }
                     }
                 }
             }
@@ -124,9 +125,9 @@ public class ContactActivity extends Activity {
     }
 
     private void parseData() {
-        for (HashMap<String, Object> map : contactItemsTmp) {
-            contactItems.add(map);
-            contactAdapter.notifyDataSetChanged();
+        for (ContactItem contactItem : contactItemsTmp) {
+            contactItems.add(contactItem);
+            contactItemAdapter.notifyDataSetChanged();
         }
         contactItemsTmp.clear();
     }
@@ -148,10 +149,10 @@ public class ContactActivity extends Activity {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Toast.makeText(getApplicationContext(), ((TextView)view.findViewById(R.id.nameTextView)).getText().toString(), Toast.LENGTH_SHORT).show();
             Intent contactItemIntent = new Intent(ContactActivity.this, contactItemActivity.class);
-            contactItemIntent.putExtra("contactName", contactItems.get(position - 1).get("nameTextView").toString());
-            contactItemIntent.putExtra("contactPhone", contactItems.get(position - 1).get("phoneTextView").toString());
-            contactItemIntent.putExtra("contactEmail", contactItems.get(position - 1).get("emailTextView").toString());
-            contactItemIntent.putExtra("contactID", contactItems.get(position - 1).get("objectId").toString());
+            contactItemIntent.putExtra("contactImg", contactItems.get(position - 1).getImgUrl());
+            contactItemIntent.putExtra("contactName", contactItems.get(position - 1).getName());
+            contactItemIntent.putExtra("contactPhone", contactItems.get(position - 1).getPhone());
+            contactItemIntent.putExtra("contactEmail", contactItems.get(position - 1).getEmail());
             startActivity(contactItemIntent);
         }
     };
@@ -159,8 +160,7 @@ public class ContactActivity extends Activity {
     final private int PAGE_COUNT = 10;
     private int page = 0;
     private int prevLocation = 0;
-    private SimpleAdapter contactAdapter;
-    private LinkedList<HashMap<String, Object>> contactItems;
-    private ArrayList<HashMap<String, Object>> contactItemsTmp;
+    private ArrayList<ContactItem> contactItems, contactItemsTmp;
+    private ContactItemAdapter contactItemAdapter;
     private PullToRefreshListView contactListView;
 }

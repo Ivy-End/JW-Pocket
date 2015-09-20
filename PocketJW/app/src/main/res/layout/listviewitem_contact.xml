@@ -32,7 +32,6 @@
             android:textColor="@android:color/darker_gray"
             android:layout_margin="4dp"
             android:textSize="12sp" />
-
     </LinearLayout>
 
 </LinearLayout>

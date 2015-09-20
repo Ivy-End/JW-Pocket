@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jw.iii.pocketjw.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class contactItemActivity extends Activity {
 
@@ -27,10 +29,12 @@ public class contactItemActivity extends Activity {
 
         Intent contactItemIntent = getIntent();
 
+        contactImg = contactItemIntent.getStringExtra("contactImg");
         contactName = contactItemIntent.getStringExtra("contactName");
         contactPhone = contactItemIntent.getStringExtra("contactPhone");
         contactEmail = contactItemIntent.getStringExtra("contactEmail");
 
+        imgImageView = (ImageView)findViewById(R.id.imgImageView);
         nameTextView = (TextView)findViewById(R.id.nameTextView);
         phoneTextView = (TextView)findViewById(R.id.phoneTextView);
         emailTextView = (TextView)findViewById(R.id.emailTextView);
@@ -41,6 +45,7 @@ public class contactItemActivity extends Activity {
         exportButton.setOnClickListener(exportListener);
 
         setTitle(contactName);
+        ImageLoader.getInstance().displayImage(contactImg, imgImageView);
         nameTextView.setText(contactName);
         phoneTextView.setText(contactPhone);
         emailTextView.setText(contactEmail);
@@ -82,7 +87,8 @@ public class contactItemActivity extends Activity {
         String contactText = "来自掌上敬文的名片分享：\n";
         contactText += "姓名：" + contactName + "\n";
         contactText += "联系方式：" + contactPhone + "\n";
-        contactText += "电子邮箱：" + contactEmail;
+        contactText += "电子邮箱：" + contactEmail + "\n";
+        contactText += "（来自掌上敬文）";
         return contactText;
     }
 
@@ -161,7 +167,8 @@ public class contactItemActivity extends Activity {
         }
     };
 
-    private String contactName, contactPhone, contactEmail;
+    private String contactImg, contactName, contactPhone, contactEmail;
     private Button exportButton;
+    private ImageView imgImageView;
     private TextView nameTextView, phoneTextView, emailTextView;
 }

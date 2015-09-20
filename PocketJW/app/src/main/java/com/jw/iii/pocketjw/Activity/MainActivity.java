@@ -5,11 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,12 +16,10 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
-import com.jw.iii.pocketjw.Fragment.NewsFragment;
+import com.jw.iii.pocketjw.Fragment.NoticeFragment;
 import com.jw.iii.pocketjw.Fragment.ProblemsFragment;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
-
-import java.util.zip.Inflater;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -41,16 +37,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
-        newsRelativeLayout = (RelativeLayout)findViewById(R.id.newsRelativeLayout);
-        newsImageView = (ImageView)findViewById(R.id.newsImageView);
-        newsTextView = (TextView)findViewById(R.id.newsTextView);
+        noticeRelativeLayout = (RelativeLayout)findViewById(R.id.noticeRelativeLayout);
+        noticeImageView = (ImageView)findViewById(R.id.noticeImageView);
+        noticeTextView = (TextView)findViewById(R.id.noticeTextView);
         problemsRelativeLayout = (RelativeLayout)findViewById(R.id.problemsRelativeLayout);
         problemsImageView = (ImageView)findViewById(R.id.problemsImageView);
         problemsTextView = (TextView)findViewById(R.id.problemsTextView);
         moreRelativeLayout = (RelativeLayout)findViewById(R.id.moreRelativeLayout);
         moreImageView = (ImageView)findViewById(R.id.moreImageView);
         moreTextView = (TextView)findViewById(R.id.moreTextView);
-        newsRelativeLayout.setOnClickListener(this);
+        noticeRelativeLayout.setOnClickListener(this);
         problemsRelativeLayout.setOnClickListener(this);
         moreRelativeLayout.setOnClickListener(this);
     }
@@ -84,13 +80,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         switch (index) {
             case 0:
-                newsImageView.setImageResource(R.drawable.news_hover);
-                newsTextView.setTextColor(getResources().getColor(R.color.primaryColor));
-                if (newsFragment == null) {
-                    newsFragment = new NewsFragment();
-                    transaction.add(R.id.contentFrameLayout, newsFragment);
+                noticeImageView.setImageResource(R.drawable.notice_hover);
+                noticeTextView.setTextColor(getResources().getColor(R.color.primaryColor));
+                if (noticeFragment == null) {
+                    noticeFragment = new NoticeFragment();
+                    transaction.add(R.id.contentFrameLayout, noticeFragment);
                 } else {
-                    transaction.show(newsFragment);
+                    transaction.show(noticeFragment);
                 }
                 break;
             case 1:
@@ -118,8 +114,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void clearChoice() {
-        newsImageView.setImageResource(R.drawable.news_default);
-        newsTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        noticeImageView.setImageResource(R.drawable.notice_default);
+        noticeTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
         problemsImageView.setImageResource(R.drawable.problem_default);
         problemsTextView.setTextColor(getResources().getColor(android.R.color.darker_gray));
         moreImageView.setImageResource(R.drawable.more_default);
@@ -127,8 +123,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void hideFragments(FragmentTransaction transaction) {
-        if (newsFragment != null) {
-            transaction.hide(newsFragment);
+        if (noticeFragment != null) {
+            transaction.hide(noticeFragment);
         }
         if (problemsFragment != null) {
             transaction.hide(problemsFragment);
@@ -141,7 +137,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newsRelativeLayout:
+            case R.id.noticeRelativeLayout:
                 setChoiceItem(0);
                 break;
             case R.id.problemsRelativeLayout:
@@ -178,11 +174,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private TextView nameTextView;
-    private Fragment newsFragment, problemsFragment, moreFragment;
-    private FrameLayout contentFrameLayout;
-    private RelativeLayout newsRelativeLayout, problemsRelativeLayout, moreRelativeLayout;
-    private ImageView newsImageView, problemsImageView, moreImageView;
-    private TextView newsTextView, problemsTextView, moreTextView;
+    private Fragment noticeFragment, problemsFragment, moreFragment;
+    private RelativeLayout noticeRelativeLayout, problemsRelativeLayout, moreRelativeLayout;
+    private ImageView noticeImageView, problemsImageView, moreImageView;
+    private TextView noticeTextView, problemsTextView, moreTextView;
     private FragmentManager fragmentManager;
 
     private SlidingMenu slidingMenu;
