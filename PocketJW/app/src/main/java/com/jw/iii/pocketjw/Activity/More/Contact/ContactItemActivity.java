@@ -1,4 +1,4 @@
-package com.jw.iii.pocketjw.Activity.More;
+package com.jw.iii.pocketjw.Activity.More.Contact;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.jw.iii.pocketjw.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class contactItemActivity extends Activity {
+public class ContactItemActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

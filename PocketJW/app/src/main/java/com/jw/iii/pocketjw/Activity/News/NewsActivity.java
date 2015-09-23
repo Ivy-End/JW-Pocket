@@ -31,7 +31,7 @@ public class NewsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tour);
+        setContentView(R.layout.activity_news);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         initView();
@@ -99,7 +99,7 @@ public class NewsActivity extends Activity {
                     } else {
                         for (AVObject object : avObjects) {
                             AVFile file = object.getAVFile("thumbnail");
-                            NewsItem newsItem = new NewsItem(file.getUrl(), object.get("title").toString(),
+                            NewsItem newsItem = new NewsItem(file.getThumbnailUrl(true, 72, 72), object.get("title").toString(),
                                     object.get("postDate").toString(), object.get("content").toString());
                             newsItemsTmp.add(newsItem);
                         }

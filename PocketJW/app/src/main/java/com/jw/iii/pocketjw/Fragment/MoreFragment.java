@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVUser;
-import com.jw.iii.pocketjw.Activity.MainActivity;
-import com.jw.iii.pocketjw.Activity.More.ContactActivity;
+import com.jw.iii.pocketjw.Activity.More.Contact.ContactActivity;
+import com.jw.iii.pocketjw.Activity.More.Profile.ProfileActivity;
+import com.jw.iii.pocketjw.Activity.More.Setting.SettingActivity;
 import com.jw.iii.pocketjw.Activity.News.NewsActivity;
 import com.jw.iii.pocketjw.Activity.User.LoginActivity;
 import com.jw.iii.pocketjw.R;
@@ -26,10 +27,14 @@ public class MoreFragment extends Fragment {
 
         newsLinearLayout = (LinearLayout)view.findViewById(R.id.newsLinearLayout);
         contactLinearLayout = (LinearLayout)view.findViewById(R.id.contactLinearLayout);
+        settingLinearLayout = (LinearLayout)view.findViewById(R.id.settingLinearLayout);
+        profileLinearLayout = (LinearLayout)view.findViewById(R.id.profileLinearLayout);
         logoutLinearLayout = (LinearLayout)view.findViewById(R.id.logoutLinearLayout);
 
         newsLinearLayout.setOnClickListener(newsListner);
         contactLinearLayout.setOnClickListener(contactListener);
+        settingLinearLayout.setOnClickListener(settingListener);
+        profileLinearLayout.setOnClickListener(profileListener);
         logoutLinearLayout.setOnClickListener(logoutListener);
 
         return view;
@@ -51,6 +56,22 @@ public class MoreFragment extends Fragment {
         }
     };
 
+    View.OnClickListener settingListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent settingIntent = new Intent(getActivity(), SettingActivity.class);
+            getActivity().startActivity(settingIntent);
+        }
+    };
+
+    View.OnClickListener profileListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent profileIntent = new Intent(getActivity(), ProfileActivity.class);
+            getActivity().startActivity(profileIntent);
+        }
+    };
+
     View.OnClickListener logoutListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -61,5 +82,7 @@ public class MoreFragment extends Fragment {
         }
     };
 
-    private LinearLayout newsLinearLayout, contactLinearLayout, logoutLinearLayout;
+    private LinearLayout newsLinearLayout, contactLinearLayout;
+    private LinearLayout settingLinearLayout, profileLinearLayout;
+    private LinearLayout logoutLinearLayout;
 }

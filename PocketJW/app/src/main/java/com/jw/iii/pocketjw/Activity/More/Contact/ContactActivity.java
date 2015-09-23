@@ -1,16 +1,13 @@
-package com.jw.iii.pocketjw.Activity.More;
+package com.jw.iii.pocketjw.Activity.More.Contact;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +24,6 @@ import com.jw.iii.pocketjw.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ContactActivity extends Activity {
@@ -114,7 +109,7 @@ public class ContactActivity extends Activity {
                     } else {
                         for(AVObject object : avObjects) {
                             AVFile file = object.getAVFile("gravatar");
-                            ContactItem contactItem = new ContactItem(file.getUrl(), object.get("name").toString(),
+                            ContactItem contactItem = new ContactItem(file.getThumbnailUrl(true, 72, 72), object.get("name").toString(),
                                     object.get("mobilePhoneNumber").toString(), object.get("email").toString());
                             contactItemsTmp.add(contactItem);
                         }
@@ -148,7 +143,7 @@ public class ContactActivity extends Activity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Toast.makeText(getApplicationContext(), ((TextView)view.findViewById(R.id.nameTextView)).getText().toString(), Toast.LENGTH_SHORT).show();
-            Intent contactItemIntent = new Intent(ContactActivity.this, contactItemActivity.class);
+            Intent contactItemIntent = new Intent(ContactActivity.this, ContactItemActivity.class);
             contactItemIntent.putExtra("contactImg", contactItems.get(position - 1).getImgUrl());
             contactItemIntent.putExtra("contactName", contactItems.get(position - 1).getName());
             contactItemIntent.putExtra("contactPhone", contactItems.get(position - 1).getPhone());

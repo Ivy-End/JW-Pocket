@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jw.iii.pocketjw.Activity.MainActivity">
 
-    <item android:id="@+id/action_problem_add"
+    <item android:id="@+id/action_menu_add"
         android:icon="@drawable/add"
         android:showAsAction="always"
         android:title="@string/action_problem_add" />

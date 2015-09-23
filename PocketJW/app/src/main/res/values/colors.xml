@@ -3,4 +3,5 @@
     <color name="primaryColor">#ED7A63</color>
     <color name="primaryColorDark">#773D32</color>
     <color name="inputBackground">#FBFCFC</color>
+    <color name="light_gray">#D3D3D3</color>
 </resources>

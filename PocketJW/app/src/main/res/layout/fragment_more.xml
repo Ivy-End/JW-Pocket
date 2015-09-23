@@ -15,7 +15,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@drawable/linearlayout_bg">
 
             <ImageView
                 android:id="@+id/newsImageView"
@@ -41,7 +41,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@drawable/linearlayout_bg">
 
             <ImageView
                 android:id="@+id/contactImageView"
@@ -62,6 +62,67 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
+
+        <!-- setting -->
+        <LinearLayout
+            android:id="@+id/settingLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/linearlayout_bg">
+
+            <ImageView
+                android:id="@+id/settingImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:src="@drawable/more_setting"/>
+
+            <TextView
+                android:id="@+id/settingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_setting"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <!-- profile -->
+        <LinearLayout
+            android:id="@+id/profileLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/linearlayout_bg">
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:src="@drawable/more_profile"/>
+
+            <TextView
+                android:id="@+id/profileTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_profile"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -76,7 +137,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@drawable/linearlayout_bg">
 
             <ImageView
                 android:id="@+id/logoutImageView"

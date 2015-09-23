@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".Helper.IIIApplication"
@@ -51,12 +52,24 @@
             android:label="@string/title_activity_news_item" >
         </activity>
         <activity
-            android:name=".Activity.More.ContactActivity"
+            android:name=".Activity.More.Contact.ContactActivity"
             android:label="@string/title_activity_contact" >
         </activity>
         <activity
-            android:name=".Activity.More.contactItemActivity"
+            android:name=".Activity.More.Contact.ContactItemActivity"
             android:label="@string/title_activity_contact_item" >
+        </activity>
+        <activity
+            android:name=".Activity.More.Profile.ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name=".Activity.More.Setting.SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".Activity.More.Profile.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password" >
         </activity>
     </application>
 

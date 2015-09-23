@@ -1,5 +1,6 @@
 package com.jw.iii.pocketjw.Activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,11 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jw.iii.pocketjw.Activity.More.Profile.ProfileActivity;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
 import com.jw.iii.pocketjw.Fragment.NoticeFragment;
 import com.jw.iii.pocketjw.Fragment.ProblemsFragment;
+import com.jw.iii.pocketjw.Helper.Utils;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -77,7 +80,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void loadGravatar() {
 
         final CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
-        ImageLoader.getInstance().loadImage(AVUser.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
+        gravatar.setOnClickListener(gravatarListener);
+        ImageLoader.getInstance().loadImage(Utils.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 
@@ -197,6 +201,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    View.OnClickListener gravatarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+            startActivity(profileIntent);
+        }
+    };
 
     private TextView nameTextView;
     private Fragment noticeFragment, problemsFragment, moreFragment;
