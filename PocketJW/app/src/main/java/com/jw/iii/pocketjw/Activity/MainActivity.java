@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jw.iii.pocketjw.Activity.More.Profile.ProfileActivity;
+import com.jw.iii.pocketjw.Activity.Problems.AddProblemActivity;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
 import com.jw.iii.pocketjw.Fragment.NoticeFragment;
 import com.jw.iii.pocketjw.Fragment.ProblemsFragment;
@@ -108,6 +109,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         clearChoice();
         hideFragments(transaction);
+        setTitle(APP_TITLE[index]);
 
         switch (index) {
             case 0:
@@ -197,6 +199,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.action_menu_add:
+                if (problemsFragment != null) {
+                    Intent addProblemIntent = new Intent(MainActivity.this, AddProblemActivity.class);
+                    startActivity(addProblemIntent);
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -218,4 +225,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private FragmentManager fragmentManager;
 
     private SlidingMenu slidingMenu;
+
+    private final String APP_TITLE[] = { "通知发文", "问题解答", "更多信息" };
 }

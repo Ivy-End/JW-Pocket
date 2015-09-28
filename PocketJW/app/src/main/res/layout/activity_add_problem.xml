@@ -1,0 +1,40 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:background="@color/inputBackground"
+        android:hint="@string/problem_title"/>
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:background="@color/inputBackground"
+        android:inputType="textMultiLine"
+        android:gravity="start|top"
+        android:minLines="3"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:hint="@string/problem_description" />
+
+    <LinearLayout
+        android:id="@+id/imageLinearLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin">
+
+        </LinearLayout>
+
+    </LinearLayout>

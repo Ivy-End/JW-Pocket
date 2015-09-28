@@ -71,6 +71,18 @@
             android:name=".Activity.More.Profile.ChangePasswordActivity"
             android:label="@string/title_activity_change_password" >
         </activity>
+        <activity
+            android:name=".Activity.Problems.AddProblemActivity"
+            android:label="@string/title_activity_add_problem" >
+        </activity>
+        <activity
+            android:name=".Activity.Problems.ImageDisplayActivity"
+            android:label="@string/title_activity_image_display" >
+        </activity>
+        <activity
+            android:name=".Activity.Problems.ProblemItemActivity"
+            android:label="@string/title_activity_problem_item" >
+        </activity>
     </application>
 
 </manifest>

@@ -43,5 +43,12 @@
     <string name="new_password">新密码</string>
     <string name="sync_local_phone_number">同步本机号码</string>
     <string name="profile_phone_hint">联系方式（单击图标同步本机号码）</string>
+    <string name="title_activity_add_problem">发布问题</string>
+    <string name="finish">完成</string>
+    <string name="problem_title">问题标题</string>
+    <string name="problem_description">问题描述</string>
+    <string name="add_image">添加图片</string>
+    <string name="title_activity_image_display">图片展示</string>
+    <string name="title_activity_problem_item">查看问题</string>
 
 </resources>
