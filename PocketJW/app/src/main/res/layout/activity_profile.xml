@@ -97,7 +97,17 @@
             android:id="@+id/changePasswordButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/input_margin"
             android:text="@string/reset_password"
+            android:textColor="@android:color/white"
+            android:background="@color/primaryColor"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/input_margin"
+            android:text="@string/save"
             android:textColor="@android:color/white"
             android:background="@color/primaryColor"/>
 

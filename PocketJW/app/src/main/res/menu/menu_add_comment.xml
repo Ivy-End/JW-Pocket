@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jw.iii.pocketjw.Activity.Problems.AddProblemActivity">
+
+    <item android:id="@+id/action_menu_add_image"
+        android:icon="@drawable/add_image"
+        android:showAsAction="always"
+        android:title="@string/add_image" />
+
+    <item android:id="@+id/action_menu_add_finish"
+        android:icon="@drawable/add_problem"
+        android:showAsAction="always"
+        android:title="@string/finish" />
+
+</menu>

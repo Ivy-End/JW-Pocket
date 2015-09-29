@@ -14,10 +14,13 @@ import java.util.ArrayList;
 public class ProblemItem {
 
     public ProblemItem(String problemID, String problemTitle, String problemDesc,
-                       AVUser problemPublisher, String problemImages) {
+                       String problemView, String problemComment, AVUser problemPublisher,
+                       String problemImages) {
         this.problemID = problemID;
         this.problemTitle = problemTitle;
         this.problemDesc = problemDesc;
+        this.problemView = problemView;
+        this.problemComment = problemComment;
         this.problemPublisher = problemPublisher;
 
         this.problemImages = new ArrayList<>();
@@ -44,6 +47,14 @@ public class ProblemItem {
         return problemDesc;
     }
 
+    public String getProblemView() {
+        return problemView;
+    }
+
+    public String getProblemComment() {
+        return problemComment;
+    }
+
     public AVUser getProblemPublisher() {
         return problemPublisher;
     }
@@ -55,6 +66,8 @@ public class ProblemItem {
     private String problemID;
     private String problemTitle;
     private String problemDesc;
+    private String problemView;
+    private String problemComment;
     private AVUser problemPublisher;
     private ArrayList<String> problemImages;
 }

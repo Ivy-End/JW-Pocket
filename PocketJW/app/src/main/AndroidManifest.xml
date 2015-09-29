@@ -83,6 +83,10 @@
             android:name=".Activity.Problems.ProblemItemActivity"
             android:label="@string/title_activity_problem_item" >
         </activity>
+        <activity
+            android:name=".Activity.Problems.AddCommentActivity"
+            android:label="@string/title_activity_add_comment" >
+        </activity>
     </application>
 
 </manifest>

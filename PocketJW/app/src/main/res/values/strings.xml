@@ -50,5 +50,8 @@
     <string name="add_image">添加图片</string>
     <string name="title_activity_image_display">图片展示</string>
     <string name="title_activity_problem_item">查看问题</string>
+    <string name="add_solution">添加回答</string>
+    <string name="title_activity_add_comment">添加回答</string>
+    <string name="save">保存更改</string>
 
 </resources>

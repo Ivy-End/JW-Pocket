@@ -1,0 +1,37 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin"
+            android:background="@color/inputBackground"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
+            android:minLines="6"
+            android:maxLines="12"
+            android:scrollbars="vertical"
+            android:hint="@string/problem_description" />
+
+        <LinearLayout
+            android:id="@+id/imageLinearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/input_padding"
+            android:layout_margin="@dimen/input_margin">
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

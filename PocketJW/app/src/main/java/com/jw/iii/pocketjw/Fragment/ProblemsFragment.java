@@ -99,7 +99,8 @@ public class ProblemsFragment extends Fragment {
                     } else {
                         for (AVObject object : avObjects) {
                             ProblemItem problemItem = new ProblemItem(object.getObjectId(), object.get("title").toString(),
-                                    object.get("desc").toString(), object.getAVUser("publisher"), object.get("images").toString());
+                                    object.get("desc").toString(), object.get("views").toString(), object.get("comments").toString(),
+                                    object.getAVUser("publisher"), object.get("images").toString());
                             problemItemsTmp.add(problemItem);
                         }
                     }
@@ -142,6 +143,8 @@ public class ProblemsFragment extends Fragment {
             problemItemIntent.putExtra("problemID", problemItems.get(position - 1).getProblemID());
             problemItemIntent.putExtra("problemTitle", problemItems.get(position - 1).getProblemTitle());
             problemItemIntent.putExtra("problemDesc", problemItems.get(position - 1).getProblemDesc());
+            problemItemIntent.putExtra("problemView", problemItems.get(position - 1).getProblemView());
+            problemItemIntent.putExtra("problemComment", problemItems.get(position - 1).getProblemComment());
             problemItemIntent.putExtra("problemPublisher", problemItems.get(position - 1).getProblemPublisher());
             problemItemIntent.putExtra("problemImages", problemItems.get(position - 1).getProblemImages());
             startActivity(problemItemIntent);

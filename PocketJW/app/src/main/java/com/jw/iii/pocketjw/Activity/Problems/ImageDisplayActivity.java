@@ -45,6 +45,8 @@ public class ImageDisplayActivity extends Activity {
         imageViewPager = (ViewPager)findViewById(R.id.imageViewPager);
 
         refreshView();
+
+        imageViewPager.setCurrentItem(index - 1);
     }
 
     private void refreshView() {

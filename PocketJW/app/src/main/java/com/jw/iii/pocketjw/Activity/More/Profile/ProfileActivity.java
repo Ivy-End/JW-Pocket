@@ -51,11 +51,11 @@ public class ProfileActivity extends Activity {
         phoneEditText = (EditText)findViewById(R.id.phoneEditText);
         syncImageView = (ImageView)findViewById(R.id.syncImageView);
         changePasswordButton = (Button)findViewById(R.id.changePasswordButton);
+        saveButton = (Button)findViewById(R.id.saveButton);
 
-        nameEditText.setOnFocusChangeListener(nameListener);
         syncImageView.setOnClickListener(syncListener);
-        phoneEditText.setOnFocusChangeListener(phoneListener);
         changePasswordButton.setOnClickListener(changePasswordListener);
+        saveButton.setOnClickListener(saveListener);
 
         gravatar.setOnClickListener(gravatarListener);
 
@@ -221,43 +221,11 @@ public class ProfileActivity extends Activity {
         }
     };
 
-    View.OnFocusChangeListener nameListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (!hasFocus) {
-                AVUser user = Utils.getCurrentUser();
-                if (!user.get("name").toString().equals(nameEditText.getText().toString())) {
-                    user.put("name", nameEditText.getText().toString());
-                    user.saveInBackground();
-                }
-            }
-        }
-    };
-
-    View.OnFocusChangeListener phoneListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (!hasFocus) {
-                AVUser user = Utils.getCurrentUser();
-                if (!user.get("mobilePhoneNumber").toString().equals(phoneEditText.getText().toString())) {
-                    user.put("mobilePhoneNumber", phoneEditText.getText().toString());
-                    user.saveInBackground();
-                }
-            }
-        }
-    };
-
     View.OnClickListener syncListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
             phoneEditText.setText(telephonyManager.getLine1Number());
-
-            AVUser user = Utils.getCurrentUser();
-            if (!user.get("mobilePhoneNumber").toString().equals(phoneEditText.getText())) {
-                user.put("mobilePhoneNumber", phoneEditText.getText());
-                user.saveInBackground();
-            }
         }
     };
 
@@ -269,10 +237,21 @@ public class ProfileActivity extends Activity {
         }
     };
 
+    View.OnClickListener saveListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AVUser user = Utils.getCurrentUser();
+            user.put("name", nameEditText.getText().toString());
+            user.put("mobilePhoneNumber", phoneEditText.getText().toString());
+            user.saveInBackground();
+            finish();
+        }
+    };
+
     private ImageView gravatar;
     private EditText nameEditText, phoneEditText;
     private ImageView syncImageView;
-    private Button changePasswordButton;
+    private Button changePasswordButton, saveButton;
 
     private Bitmap gravatarBitmap;
 
