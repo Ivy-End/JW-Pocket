@@ -3,16 +3,20 @@ package com.jw.iii.pocketjw.Activity.Problems;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -24,7 +28,10 @@ import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.GetFileCallback;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.jw.iii.pocketjw.Helper.Comment.CommentItem;
+import com.jw.iii.pocketjw.Helper.Comment.CommentItemAdapter;
 import com.jw.iii.pocketjw.Helper.Problem.ProblemItem;
+import com.jw.iii.pocketjw.Helper.Problem.ProblemItemAdapter;
 import com.jw.iii.pocketjw.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -86,6 +93,12 @@ public class ProblemItemActivity extends Activity {
         commentsListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         commentsListView.setOnRefreshListener(commentsListener);
         commentsListView.setOnItemClickListener(commentsItemListener);
+
+        commentsItems = new ArrayList<>();
+        commentsItemsTmp = new ArrayList<>();
+        commentsItemAdapter = new CommentItemAdapter(commentsItems, this, ImageLoader.getInstance());
+
+        commentsListView.setAdapter(commentsItemAdapter);
 
         addCommentTextView.setOnClickListener(addCommentListener);
     }
@@ -209,11 +222,59 @@ public class ProblemItemActivity extends Activity {
         }
     }
 
-    // TODO: Get data
+    public class GetFooterDataTask extends AsyncTask<Void, Void, String[]> {
+        @Override
+        protected String[] doInBackground(Void... params) {
+            getData();
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            parseData();
+            commentsListView.onRefreshComplete();
+            commentsListView.getRefreshableView().setSelectionFromTop(prevLocation, TRIM_MEMORY_BACKGROUND);
+            super.onPostExecute(strings);
+        }
+    }
+
+    private void getData() {
+        final AVQuery<AVObject> query = new AVQuery<>("Comment").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("approval").whereEqualTo("problem", problemID);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> avObjects, AVException e) {
+                if (e != null) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    if (avObjects.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "没有更多答案", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for (AVObject object : avObjects) {
+                            CommentItem commentItem = new CommentItem(object.get("comment").toString(), object.getObjectId(),
+                                    object.get("approval").toString(), object.getAVUser("publisher"), object.get("images").toString());
+                            commentsItemsTmp.add(commentItem);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void parseData() {
+        for (CommentItem commentItem : commentsItemsTmp) {
+            commentsItems.add(commentItem);
+            commentsItemAdapter.notifyDataSetChanged();
+        }
+        commentsItemsTmp.clear();
+    }
+
     PullToRefreshBase.OnRefreshListener<ListView> commentsListener = new PullToRefreshBase.OnRefreshListener<ListView>() {
         @Override
         public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-
+            if (refreshView.isFooterShown()) {
+                prevLocation = commentsItems.size();
+                new GetFooterDataTask().execute();
+            }
         }
     };
 
@@ -221,7 +282,15 @@ public class ProblemItemActivity extends Activity {
     AdapterView.OnItemClickListener commentsItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            Intent commentItemIntent = new Intent(ProblemItemActivity.this, CommentItemActivity.class);
+            commentItemIntent.putExtra("problemTitle", problemTitle);
+            commentItemIntent.putExtra("comment", commentsItems.get(position - 1).getComment());
+            commentItemIntent.putExtra("commentID", commentsItems.get(position - 1).getCommentID());
+            commentItemIntent.putExtra("commentPublisherUrl", commentsItems.get(position - 1).getCommentPublisherUrl());
+            commentItemIntent.putExtra("commentPublisherName", commentsItems.get(position - 1).getCommentPublisherName());
+            commentItemIntent.putExtra("commentApproval", commentsItems.get(position - 1).getCommentApproval());
+            commentItemIntent.putExtra("commentImages", commentsItems.get(position - 1).getCommentImages());
+            startActivity(commentItemIntent);
         }
     };
 
@@ -239,11 +308,16 @@ public class ProblemItemActivity extends Activity {
     View.OnClickListener addCommentListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             Intent addCommentIntent = new Intent(ProblemItemActivity.this, AddCommentActivity.class);
             addCommentIntent.putExtra("problemID", problemID);
             startActivity(addCommentIntent);
         }
     };
+
+    final private int PAGE_COUNT = 10;
+    private int page = 0;
+    private int prevLocation = 0;
 
     private String problemID, problemTitle, problemDesc, problemView, problemComment;
     private AVUser problemPublisher;
@@ -257,5 +331,8 @@ public class ProblemItemActivity extends Activity {
     private LinearLayout problemImagesLinearLayout;
     private TextView problemViewTextView, problemCommentTextView;
     private TextView addCommentTextView;
+
+    private ArrayList<CommentItem> commentsItems, commentsItemsTmp;
+    private CommentItemAdapter commentsItemAdapter;
     private PullToRefreshListView commentsListView;
 }

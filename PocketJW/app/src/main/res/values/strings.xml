@@ -53,5 +53,6 @@
     <string name="add_solution">添加回答</string>
     <string name="title_activity_add_comment">添加回答</string>
     <string name="save">保存更改</string>
+    <string name="title_activity_comment_item">查看回答</string>
 
 </resources>

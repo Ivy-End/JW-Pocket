@@ -87,7 +87,7 @@ public class ProblemsFragment extends Fragment {
     }
 
     private void getData() {
-        final AVQuery<AVObject> query = new AVQuery<>("Problem").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("createdAt");
+        final AVQuery<AVObject> query = new AVQuery<>("Problem").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("updatedAt");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException e) {

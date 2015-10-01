@@ -32,9 +32,6 @@ public class NewsItemActivity extends Activity {
         Typeface typeface = Typeface.create("宋体", Typeface.NORMAL);
         contentTextView.setTypeface(typeface);
 
-        contentTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
-
-
         parseNews();
     }
 

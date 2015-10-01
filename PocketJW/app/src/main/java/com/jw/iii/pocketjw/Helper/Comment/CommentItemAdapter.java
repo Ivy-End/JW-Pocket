@@ -9,10 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.GetCallback;
 import com.jw.iii.pocketjw.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -73,6 +69,8 @@ public class CommentItemAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.listviewitem_comment, null, false);
             holder.imgImageView = (ImageView)convertView.findViewById(R.id.gravatarImageView);
+            holder.approvalTextView = (TextView)convertView.findViewById(R.id.approvalTextView);
+            holder.publisherTextView = (TextView)convertView.findViewById(R.id.publisherTextView);
             holder.commentTextView = (TextView)convertView.findViewById(R.id.commentTextView);
             convertView.setTag(holder);
         } else {
@@ -81,16 +79,17 @@ public class CommentItemAdapter extends BaseAdapter {
 
         if (this.arrayList != null) {
             CommentItem commentItem = arrayList.get(position);
+            if (holder.imgImageView != null) {
+                imageLoader.displayImage(commentItem.getCommentPublisherUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+            }
+            if (holder.approvalTextView != null) {
+                holder.approvalTextView.setText(commentItem.getCommentApproval());
+            }
+            if (holder.publisherTextView != null) {
+                holder.publisherTextView.setText(commentItem.getCommentPublisherName());
+            }
             if (holder.commentTextView != null) {
                 holder.commentTextView.setText(commentItem.getComment());
-            }
-            if (holder.imgImageView != null) {
-                try {
-                    String url = commentItem.getCommentPublisher().getAVFile("gravatar").getUrl();
-                    imageLoader.displayImage(url, holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         }
 
@@ -117,6 +116,8 @@ public class CommentItemAdapter extends BaseAdapter {
 
     private class ViewHolder {
         ImageView imgImageView;
+        TextView approvalTextView;
+        TextView publisherTextView;
         TextView commentTextView;
     }
 

@@ -87,6 +87,10 @@
             android:name=".Activity.Problems.AddCommentActivity"
             android:label="@string/title_activity_add_comment" >
         </activity>
+        <activity
+            android:name=".Activity.Problems.CommentItemActivity"
+            android:label="@string/title_activity_comment_item" >
+        </activity>
     </application>
 
 </manifest>

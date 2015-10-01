@@ -18,8 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.jw.iii.pocketjw.Helper.Utils;
 import com.jw.iii.pocketjw.R;
 
@@ -88,6 +91,9 @@ public class AddCommentActivity extends Activity {
                         }
                         object.addAll("images", fileList);
                         object.saveInBackground();
+
+                        increaseCommentCount();
+
                         Toast.makeText(getApplicationContext(), "发布成功", Toast.LENGTH_SHORT).show();
                         finish();
                     } catch (IOException e) {
@@ -151,6 +157,17 @@ public class AddCommentActivity extends Activity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void increaseCommentCount() {
+        AVQuery<AVObject> query = new AVQuery<>("Problem");
+        query.getInBackground(problemID, new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+                avObject.put("comments", (int)avObject.get("comments") + 1);
+                avObject.saveInBackground();
+            }
+        });
     }
 
     public String getRealPathFromURI(Uri contentUri) {
