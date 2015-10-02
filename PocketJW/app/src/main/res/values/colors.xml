@@ -5,4 +5,8 @@
     <color name="inputBackground">#FBFCFC</color>
     <color name="light_gray">#D3D3D3</color>
     <color name="dark_green">#008B45</color>
+    <color name="common_blue">#2c97e8</color>
+    <color name="common_gray">#898989</color>
+    <color name="divider_line_color">#afafaf</color>
+    <color name="login_activity_bg">#efefef</color>
 </resources>

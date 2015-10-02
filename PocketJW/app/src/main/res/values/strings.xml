@@ -54,5 +54,10 @@
     <string name="title_activity_add_comment">添加回答</string>
     <string name="save">保存更改</string>
     <string name="title_activity_comment_item">查看回答</string>
+    <string name="title_activity_select_member">选择联系人</string>
+    <string name="title_activity_draft">编辑通知</string>
+    <string name="send_notice">发送通知</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+    <string name="title_activity_notice_item">NoticeItemActivity</string>
 
 </resources>

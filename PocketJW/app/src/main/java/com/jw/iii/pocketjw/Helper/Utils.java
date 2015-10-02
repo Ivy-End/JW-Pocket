@@ -42,4 +42,5 @@ public class Utils {
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(filePath, options);
     }
+
 }

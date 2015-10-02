@@ -1,0 +1,30 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:id="@+id/noticeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:background="@color/inputBackground"
+        android:inputType="textMultiLine"
+        android:gravity="start|top"
+        android:minLines="6"
+        android:maxLines="12"
+        android:scrollbars="vertical"/>
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="@dimen/input_padding"
+        android:layout_margin="@dimen/input_margin"
+        android:text="@string/send_notice"
+        android:textColor="@android:color/white"
+        android:background="@color/primaryColor"/>
+
+    </LinearLayout>

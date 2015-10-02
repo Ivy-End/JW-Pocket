@@ -18,6 +18,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name="com.avos.avoscloud.PushService" />
+
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".Activity.WelcomeActivity"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
@@ -90,6 +99,22 @@
         <activity
             android:name=".Activity.Problems.CommentItemActivity"
             android:label="@string/title_activity_comment_item" >
+        </activity>
+        <activity
+            android:name=".Activity.Notice.SelectMemberActivity"
+            android:label="@string/title_activity_select_member" >
+        </activity>
+        <activity
+            android:name=".Activity.Notice.DraftActivity"
+            android:label="@string/title_activity_draft" >
+        </activity>
+        <activity
+            android:name=".Activity.Notice.NoticeActivity"
+            android:label="@string/title_activity_notice" >
+        </activity>
+        <activity
+            android:name=".Activity.Notice.NoticeItemActivity"
+            android:label="@string/title_activity_notice_item" >
         </activity>
     </application>
 

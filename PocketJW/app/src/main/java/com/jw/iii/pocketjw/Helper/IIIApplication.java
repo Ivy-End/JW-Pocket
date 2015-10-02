@@ -2,7 +2,6 @@ package com.jw.iii.pocketjw.Helper;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.storage.StorageManager;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
@@ -35,7 +34,7 @@ public class IIIApplication extends Application {
     }
 
     public static void initImageLoader(Context context) {
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "News/Cache");
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "JWPocket/Cache");
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(context)
                 .memoryCacheExtraOptions(72, 72)
                 .threadPoolSize(3)

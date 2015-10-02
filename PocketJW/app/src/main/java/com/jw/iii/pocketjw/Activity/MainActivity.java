@@ -10,14 +10,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jw.iii.pocketjw.Activity.More.Profile.ProfileActivity;
+import com.jw.iii.pocketjw.Activity.Notice.SelectMemberActivity;
 import com.jw.iii.pocketjw.Activity.Problems.AddProblemActivity;
 import com.jw.iii.pocketjw.Fragment.MoreFragment;
 import com.jw.iii.pocketjw.Fragment.NoticeFragment;
@@ -110,6 +113,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         clearChoice();
         hideFragments(transaction);
         setTitle(APP_TITLE[index]);
+        currentChoice = index;
 
         switch (index) {
             case 0:
@@ -200,10 +204,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         switch (id) {
             case R.id.action_menu_add:
-                if (problemsFragment != null) {
+                if (currentChoice == 0) {
+                    Intent selectMemberIntent = new Intent(MainActivity.this, SelectMemberActivity.class);
+                    startActivity(selectMemberIntent);
+                }
+                if (currentChoice == 1) {
                     Intent addProblemIntent = new Intent(MainActivity.this, AddProblemActivity.class);
                     startActivity(addProblemIntent);
                 }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -217,6 +226,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     };
 
+    private int currentChoice = 0;
     private TextView nameTextView;
     private Fragment noticeFragment, problemsFragment, moreFragment;
     private RelativeLayout noticeRelativeLayout, problemsRelativeLayout, moreRelativeLayout;

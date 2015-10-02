@@ -6,4 +6,8 @@
     <dimen name="input_padding">8dp</dimen>
     <dimen name="slidingmenu_shadow_width">15dp</dimen>
     <dimen name="slidingmenu_offset">60dp</dimen>
+
+    <dimen name="chat_horizontal_margin">15dp</dimen>
+    <dimen name="chat_horizontal_big_margin">40dp</dimen>
+    <dimen name="chat_input_bar_height">55dp</dimen>
 </resources>

@@ -1,0 +1,59 @@
+package com.jw.iii.pocketjw.Helper.Notice;
+
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+
+/**
+ * Created by End on 2015/10/2.
+ */
+public class NoticeItem {
+
+    public NoticeItem(String fromUser, String toUser,
+               String content, String postDate) {
+        try {
+            AVQuery<AVObject> query = new AVQuery<>("_User");
+            AVObject object = query.get(fromUser);
+            fromUserName = object.get("name").toString();
+            fromUserUrl = object.getAVFile("gravatar").getUrl();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.toUser = toUser;
+        this.content = content;
+        this.postDate = postDate;
+    }
+
+    public String getFromUserUrl() {
+        return fromUserUrl;
+    }
+
+    public String getFromUserName() {
+        return fromUserName;
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getContentSub() {
+        if (content.length() < 50) {
+            return content;
+        } else {
+            return content.substring(0, 50) + "...";
+        }
+    }
+
+    public String getPostDate() {
+        return postDate;
+    }
+
+    private String fromUserUrl;
+    private String fromUserName;
+    private String toUser;
+    private String content;
+    private String postDate;
+}
