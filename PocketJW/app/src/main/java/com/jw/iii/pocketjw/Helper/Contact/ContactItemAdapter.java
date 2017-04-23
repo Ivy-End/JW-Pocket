@@ -85,10 +85,14 @@ public class ContactItemAdapter extends BaseAdapter {
                 holder.phoneTextView.setText(contactItem.getName());
             }
             if (holder.imgImageView != null) {
-                try {
-                    imageLoader.displayImage(contactItem.getImgUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (contactItem.getImgUrl() != "") {
+                    try {
+                        imageLoader.displayImage(contactItem.getImgUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    holder.imgImageView.setImageResource(R.drawable.ic_launcher);
                 }
             }
         }

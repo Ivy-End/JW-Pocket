@@ -31,10 +31,4 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/gravatarImageView"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_margin="8dp" />
-
 </LinearLayout>

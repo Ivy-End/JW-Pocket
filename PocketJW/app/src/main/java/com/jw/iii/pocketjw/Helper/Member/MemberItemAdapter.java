@@ -82,10 +82,14 @@ public class MemberItemAdapter extends BaseAdapter {
                 holder.nameTextView.setText(memberItem.getName());
             }
             if (holder.imgImageView != null) {
-                try {
-                    imageLoader.displayImage(memberItem.getImgUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (memberItem.getImgUrl() != "") {
+                    try {
+                        imageLoader.displayImage(memberItem.getImgUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    holder.imgImageView.setImageResource(R.drawable.ic_launcher);
                 }
             }
         }

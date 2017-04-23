@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jw.iii.pocketjw" >
+    package="com.jw.iii.pocketjw">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -107,10 +107,6 @@
         <activity
             android:name=".Activity.Notice.DraftActivity"
             android:label="@string/title_activity_draft" >
-        </activity>
-        <activity
-            android:name=".Activity.Notice.NoticeActivity"
-            android:label="@string/title_activity_notice" >
         </activity>
         <activity
             android:name=".Activity.Notice.NoticeItemActivity"

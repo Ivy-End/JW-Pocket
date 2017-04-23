@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -31,6 +32,8 @@ import com.jw.iii.pocketjw.UI.CircularImage;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import java.io.File;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -85,27 +88,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         final CircularImage gravatar = (CircularImage)findViewById(R.id.gravatar);
         gravatar.setOnClickListener(gravatarListener);
-        ImageLoader.getInstance().loadImage(Utils.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
+        AVFile file = Utils.getCurrentUser().getAVFile("gravatar");
+        if (file != null) {
+            ImageLoader.getInstance().loadImage(Utils.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String s, View view) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-                gravatar.setImageResource(R.drawable.ic_launcher);
-            }
+                @Override
+                public void onLoadingFailed(String s, View view, FailReason failReason) {
+                    gravatar.setImageResource(R.drawable.ic_launcher);
+                }
 
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                gravatar.setImageBitmap(bitmap);
-            }
+                @Override
+                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                    gravatar.setImageBitmap(bitmap);
+                }
 
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-                gravatar.setImageResource(R.drawable.ic_launcher);
-            }
-        });
+                @Override
+                public void onLoadingCancelled(String s, View view) {
+                    gravatar.setImageResource(R.drawable.ic_launcher);
+                }
+            });
+        } else {
+            gravatar.setImageResource(R.drawable.ic_launcher);
+        }
     }
 
     private void setChoiceItem(int index) {

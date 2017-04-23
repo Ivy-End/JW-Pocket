@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
@@ -50,9 +51,16 @@ public class SelectMemberActivity extends Activity {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     for (AVObject object : avObjects) {
-                        MemberItem memberItem = new MemberItem(object.getObjectId(), object.getAVFile("gravatar").getUrl(),
-                                object.get("name").toString(), object.get("username").toString());
-                        memberItemsTmp.add(memberItem);
+                        AVFile avFile = object.getAVFile("gravatar");
+                        if (avFile != null) {
+                            MemberItem memberItem = new MemberItem(object.getObjectId(), object.getAVFile("gravatar").getUrl(),
+                                    object.get("name").toString(), object.get("username").toString());
+                            memberItemsTmp.add(memberItem);
+                        } else {
+                            MemberItem memberItem = new MemberItem(object.getObjectId(), "",
+                                    object.get("name").toString(), object.get("username").toString());
+                            memberItemsTmp.add(memberItem);
+                        }
                     }
                     parseData();
                 }

@@ -80,7 +80,11 @@ public class CommentItemAdapter extends BaseAdapter {
         if (this.arrayList != null) {
             CommentItem commentItem = arrayList.get(position);
             if (holder.imgImageView != null) {
-                imageLoader.displayImage(commentItem.getCommentPublisherUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+                if (commentItem.getCommentPublisherUrl() != "") {
+                    imageLoader.displayImage(commentItem.getCommentPublisherUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+                } else {
+                    holder.imgImageView.setImageResource(R.drawable.ic_launcher);
+                }
             }
             if (holder.approvalTextView != null) {
                 holder.approvalTextView.setText(commentItem.getCommentApproval());

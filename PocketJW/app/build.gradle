@@ -9,13 +9,44 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    def verName = "1.0.0"
+
     defaultConfig {
-        applicationId "com.jw.iii.pocketjw"
+        applicationId "cn.irains.access.v2"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName verName
     }
+
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def A = versionProps['VERSION_NAME_A'].toInteger()
+        def B = versionProps['VERSION_NAME_B'].toInteger()
+        def C = versionProps['VERSION_NAME_C'].toInteger()
+
+        if(C++ == 10) {
+            C = 0
+            if(B++ == 10) {
+                B = 0
+                A++
+            }
+        }
+
+        versionProps['VERSION_NAME_A']=A.toString()
+        versionProps['VERSION_NAME_B']=B.toString()
+        versionProps['VERSION_NAME_C']=C.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+        defaultConfig {
+            versionName A.toString() + "." + B.toString() + "." + C.toString()
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

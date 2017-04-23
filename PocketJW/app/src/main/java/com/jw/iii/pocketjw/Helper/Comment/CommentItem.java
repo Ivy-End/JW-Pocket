@@ -1,6 +1,7 @@
 package com.jw.iii.pocketjw.Helper.Comment;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
@@ -45,7 +46,12 @@ public class CommentItem {
             @Override
             public void done(AVObject avObject, AVException e) {
                 if (e == null) {
-                    commentPublisherUrl = avObject.getAVFile("gravatar").getUrl();
+                    AVFile file = avObject.getAVFile("gravatar");
+                    if (file != null) {
+                        commentPublisherUrl = file.getUrl();
+                    } else {
+                        commentPublisherUrl = "";
+                    }
                     commentPublisherName = avObject.get("name").toString();
                 }
             }

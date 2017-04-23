@@ -109,9 +109,15 @@ public class ContactActivity extends Activity {
                     } else {
                         for(AVObject object : avObjects) {
                             AVFile file = object.getAVFile("gravatar");
-                            ContactItem contactItem = new ContactItem(file.getThumbnailUrl(true, 72, 72), object.get("name").toString(),
-                                    object.get("mobilePhoneNumber").toString(), object.get("email").toString());
-                            contactItemsTmp.add(contactItem);
+                            if (file != null) {
+                                ContactItem contactItem = new ContactItem(file.getThumbnailUrl(true, 72, 72), object.get("name").toString(),
+                                        object.get("mobilePhoneNumber").toString(), object.get("email").toString());
+                                contactItemsTmp.add(contactItem);
+                            } else {
+                                ContactItem contactItem = new ContactItem("", object.get("name").toString(),
+                                        object.get("mobilePhoneNumber").toString(), object.get("email").toString());
+                                contactItemsTmp.add(contactItem);
+                            }
                         }
                     }
                 }

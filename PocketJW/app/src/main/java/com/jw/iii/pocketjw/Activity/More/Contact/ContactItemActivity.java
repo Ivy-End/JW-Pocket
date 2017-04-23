@@ -45,7 +45,11 @@ public class ContactItemActivity extends Activity {
         exportButton.setOnClickListener(exportListener);
 
         setTitle(contactName);
-        ImageLoader.getInstance().displayImage(contactImg, imgImageView);
+        if (contactImg != "") {
+            ImageLoader.getInstance().displayImage(contactImg, imgImageView);
+        } else {
+            imgImageView.setImageResource(R.drawable.ic_launcher);
+        }
         nameTextView.setText(contactName);
         phoneTextView.setText(contactPhone);
         emailTextView.setText(contactEmail);

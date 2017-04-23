@@ -1,6 +1,10 @@
 package com.jw.iii.pocketjw.Activity.User;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,10 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
 import com.jw.iii.pocketjw.Activity.MainActivity;
 import com.jw.iii.pocketjw.Helper.AVService;
+import com.jw.iii.pocketjw.Helper.Utils;
 import com.jw.iii.pocketjw.R;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class RegisterActivity extends IIIActivity {
 
@@ -41,6 +54,35 @@ public class RegisterActivity extends IIIActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private static Bitmap getBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    private static void saveIamge(Bitmap bitmap, String filePath) {
+        BufferedOutputStream outputStream = null;
+        try {
+            File file = new File(filePath);
+            file.createNewFile();
+            outputStream = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -84,10 +126,12 @@ public class RegisterActivity extends IIIActivity {
                     }
                 };
 
-                AVService.signUp(username, password, name, studentID, email, phone, signUpCallback);
+                AVService.signUp(username, password, name, studentID, email, phone, signUpCallback, getApplicationContext());
             }
         }
     };
+
+    private static final String SDCARD_PATH_TMP = "/sdcard/PocketJW/Tmp";
 
     EditText usernameEditText, passwordEditText, repeatPasswordEditText;
     EditText nameEditText, studentIDEditText, emailEditText, phoneEditText;

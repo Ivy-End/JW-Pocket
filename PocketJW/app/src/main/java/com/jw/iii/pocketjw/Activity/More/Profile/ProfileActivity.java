@@ -63,28 +63,34 @@ public class ProfileActivity extends Activity {
     }
 
     private void initData() {
-        ImageLoader.getInstance().loadImage(Utils.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
+        AVFile file = Utils.getCurrentUser().getAVFile("gravatar");
+        if (file != null) {
+            ImageLoader.getInstance().loadImage(Utils.getCurrentUser().getAVFile("gravatar").getUrl(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String s, View view) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                @Override
+                public void onLoadingFailed(String s, View view, FailReason failReason) {
+                    gravatar.setImageResource(R.drawable.ic_launcher);
+                }
 
-            }
+                @Override
+                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                    gravatarBitmap = bitmap;
+                    gravatar.setImageBitmap(gravatarBitmap);
+                }
 
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                gravatarBitmap = bitmap;
-                gravatar.setImageBitmap(gravatarBitmap);
-            }
+                @Override
+                public void onLoadingCancelled(String s, View view) {
 
-            @Override
-            public void onLoadingCancelled(String s, View view) {
+                }
+            });
+        } else {
+            gravatar.setImageResource(R.drawable.ic_launcher);
+        }
 
-            }
-        });
 
         AVUser user = Utils.getCurrentUser();
         nameEditText.setText(user.get("name").toString());

@@ -57,7 +57,11 @@
     <string name="title_activity_select_member">选择联系人</string>
     <string name="title_activity_draft">编辑通知</string>
     <string name="send_notice">发送通知</string>
+    <string name="title_activity_notice_item">查看通知</string>
+    <string name="delay">延期</string>
+    <string name="notice_finish">完成</string>
     <string name="title_activity_notice">NoticeActivity</string>
-    <string name="title_activity_notice_item">NoticeItemActivity</string>
+    <string name="less_mode">省流量模式</string>
+    <string name="comment_description">回答内容</string>
 
 </resources>

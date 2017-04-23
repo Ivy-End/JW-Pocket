@@ -8,8 +8,10 @@ import com.avos.avoscloud.AVQuery;
  */
 public class NoticeItem {
 
-    public NoticeItem(String fromUser, String toUser,
-               String content, String postDate) {
+    public NoticeItem(String objectId, String fromUser, String toUser,
+               String content, String postDate, String status, boolean isSender) {
+        this.objectId = objectId;
+
         try {
             AVQuery<AVObject> query = new AVQuery<>("_User");
             AVObject object = query.get(fromUser);
@@ -21,6 +23,12 @@ public class NoticeItem {
         this.toUser = toUser;
         this.content = content;
         this.postDate = postDate;
+        this.status = status;
+        this.isSender = isSender;
+    }
+
+    public String getObjectId() {
+        return objectId;
     }
 
     public String getFromUserUrl() {
@@ -51,9 +59,20 @@ public class NoticeItem {
         return postDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public boolean getIsSender() {
+        return isSender;
+    }
+
+    private String objectId;
     private String fromUserUrl;
     private String fromUserName;
     private String toUser;
+    private String status;
     private String content;
     private String postDate;
+    private boolean isSender;
 }

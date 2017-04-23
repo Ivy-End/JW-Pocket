@@ -113,7 +113,11 @@ public class ProblemItemActivity extends Activity {
                     AVUser user = (AVUser)avObject;
                     AVFile file = user.getAVFile("gravatar");
                     problemPublisherTextView.setText(user.get("name").toString());
-                    ImageLoader.getInstance().displayImage(file.getUrl(), problemPublisherImageView);
+                    if (file != null) {
+                        ImageLoader.getInstance().displayImage(file.getUrl(), problemPublisherImageView);
+                    } else {
+                        problemPublisherImageView.setImageResource(R.drawable.ic_launcher);
+                    }
                 }
             }
         });

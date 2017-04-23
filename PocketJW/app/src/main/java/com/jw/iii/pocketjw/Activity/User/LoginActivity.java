@@ -18,6 +18,7 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.jw.iii.pocketjw.Activity.MainActivity;
 import com.jw.iii.pocketjw.Activity.News.NewsActivity;
+import com.jw.iii.pocketjw.Helper.Utils;
 import com.jw.iii.pocketjw.R;
 import com.jw.iii.pocketjw.UI.CircularImage;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,12 +45,11 @@ public class LoginActivity extends IIIActivity {
         forgetPasswordTextView = (TextView)findViewById(R.id.forgetPasswordTextView);
         tourTextView = (TextView)findViewById(R.id.tourTextView);
 
-        // TODO: Finish Register and Tour function
-        /*if (getUserId() != null) {
+        if (Utils.getCurrentUser() != null) {
             Intent mainIntent = new Intent(activity, MainActivity.class);
             startActivity(mainIntent);
             activity.finish();
-        }*/
+        }
 
         loginButton.setOnClickListener(loginListener);
         usernameEditText.setOnFocusChangeListener(usernameListener);
@@ -106,27 +106,31 @@ public class LoginActivity extends IIIActivity {
                                 if (!avUsers.isEmpty()) {
                                     AVUser user = avUsers.get(0);
                                     AVFile file = user.getAVFile("gravatar");
-                                    ImageLoader.getInstance().loadImage(file.getUrl(), new ImageLoadingListener() {
-                                        @Override
-                                        public void onLoadingStarted(String s, View view) {
+                                    if (file != null) {
+                                        ImageLoader.getInstance().loadImage(file.getUrl(), new ImageLoadingListener() {
+                                            @Override
+                                            public void onLoadingStarted(String s, View view) {
 
-                                        }
+                                            }
 
-                                        @Override
-                                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                                            gravatar.setImageResource(R.drawable.ic_launcher);
-                                        }
+                                            @Override
+                                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                                gravatar.setImageResource(R.drawable.ic_launcher);
+                                            }
 
-                                        @Override
-                                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                                            gravatar.setImageBitmap(bitmap);
-                                        }
+                                            @Override
+                                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                                gravatar.setImageBitmap(bitmap);
+                                            }
 
-                                        @Override
-                                        public void onLoadingCancelled(String s, View view) {
-
-                                        }
-                                    });
+                                            @Override
+                                            public void onLoadingCancelled(String s, View view) {
+                                                gravatar.setImageResource(R.drawable.ic_launcher);
+                                            }
+                                        });
+                                    } else {
+                                        gravatar.setImageResource(R.drawable.ic_launcher);
+                                    }
                                 }
                             }
                         }

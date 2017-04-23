@@ -71,6 +71,7 @@ public class NoticeItemAdapter extends BaseAdapter {
             holder.imgImageView = (ImageView)convertView.findViewById(R.id.imgImageView);
             holder.fromTextView = (TextView)convertView.findViewById(R.id.fromTextView);
             holder.contentTextView = (TextView)convertView.findViewById(R.id.contentTextView);
+            holder.statusTextView = (TextView)convertView.findViewById(R.id.statusTextView);
             holder.dateTextView = (TextView)convertView.findViewById(R.id.dateTextView);
             convertView.setTag(holder);
         } else {
@@ -88,11 +89,22 @@ public class NoticeItemAdapter extends BaseAdapter {
             if (holder.dateTextView != null) {
                 holder.dateTextView.setText(noticeItem.getPostDate());
             }
+            if (holder.statusTextView != null) {
+                if (noticeItem.getIsSender()) {
+                    holder.statusTextView.setText("SENDED - " + noticeItem.getStatus());
+                } else {
+                    holder.statusTextView.setText(noticeItem.getStatus());
+                }
+            }
             if (holder.imgImageView != null) {
-                try {
-                    imageLoader.displayImage(noticeItem.getFromUserUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (noticeItem.getFromUserUrl() != "") {
+                    try {
+                        imageLoader.displayImage(noticeItem.getFromUserUrl(), holder.imgImageView, displayImageOptions, imageLoadingListenerImp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    holder.imgImageView.setImageResource(R.drawable.ic_launcher);
                 }
             }
         }
@@ -122,6 +134,7 @@ public class NoticeItemAdapter extends BaseAdapter {
         ImageView imgImageView;
         TextView fromTextView;
         TextView contentTextView;
+        TextView statusTextView;
         TextView dateTextView;
     }
 

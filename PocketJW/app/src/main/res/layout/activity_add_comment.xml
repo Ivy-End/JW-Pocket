@@ -21,7 +21,7 @@
             android:minLines="6"
             android:maxLines="12"
             android:scrollbars="vertical"
-            android:hint="@string/problem_description" />
+            android:hint="@string/comment_description" />
 
         <LinearLayout
             android:id="@+id/imageLinearLayout"

@@ -87,7 +87,7 @@ public class NewsActivity extends Activity {
     }
 
     private void getData() {
-        final AVQuery<AVObject> query = new AVQuery<>("News").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
+        final AVQuery<AVObject> query = new AVQuery<>("News").setSkip(page * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException e) {
@@ -103,6 +103,7 @@ public class NewsActivity extends Activity {
                                     object.get("postDate").toString(), object.get("content").toString());
                             newsItemsTmp.add(newsItem);
                         }
+                        page++;
                     }
                 }
             }

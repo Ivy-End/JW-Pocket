@@ -63,7 +63,11 @@ public class CommentItemActivity extends Activity {
         commentImagesLinearLayout = (LinearLayout)findViewById(R.id.commentImageLinearLayout);
 
         setTitle(problemTitle);
-        ImageLoader.getInstance().displayImage(commentPublisherUrl, commentPublisherImageView);
+        if (commentPublisherUrl != "") {
+            ImageLoader.getInstance().displayImage(commentPublisherUrl, commentPublisherImageView);
+        } else {
+            commentPublisherImageView.setImageResource(R.drawable.ic_launcher);
+        }
         commentPublisherTextView.setText(commentPublisherName);
         commentApprovalTextView.setText(commentApproval);
         commentTextView.setText(comment);

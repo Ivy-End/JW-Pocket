@@ -22,6 +22,8 @@ import com.avos.avoscloud.FindCallback;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jw.iii.pocketjw.Activity.Notice.NoticeItemActivity;
+import com.jw.iii.pocketjw.Helper.AVService;
+import com.jw.iii.pocketjw.Helper.IIIApplication;
 import com.jw.iii.pocketjw.Helper.Notice.NoticeItem;
 import com.jw.iii.pocketjw.Helper.Notice.NoticeItemAdapter;
 import com.jw.iii.pocketjw.Helper.Utils;
@@ -96,9 +98,9 @@ public class NoticeFragment extends Fragment {
     }
 
     private void getData() {
-        final AVQuery<AVObject> query = new AVQuery<>("Notice").setSkip(page++ * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
-        query.whereEqualTo("to", Utils.getCurrentUser().getObjectId()).whereEqualTo("view", false);
-        query.findInBackground(new FindCallback<AVObject>() {
+        final AVQuery<AVObject> query_to = new AVQuery<>("Notice").setSkip(page * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
+        query_to.whereEqualTo("to", Utils.getCurrentUser().getObjectId());
+        query_to.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException e) {
                 if (e != null) {
@@ -108,14 +110,39 @@ public class NoticeFragment extends Fragment {
                         Toast.makeText(getActivity(), "没有更多通知", Toast.LENGTH_SHORT).show();
                     } else {
                         for (AVObject object : avObjects) {
-                            NoticeItem noticeItem = new NoticeItem(object.getAVUser("from").getObjectId(), object.get("to").toString(),
-                                    object.get("content").toString(), object.get("createdAt").toString());
+                            NoticeItem noticeItem = new NoticeItem(object.getObjectId(), object.getAVUser("from").getObjectId(),
+                                    object.get("to").toString(), object.get("content").toString(), object.get("createdAt").toString(),
+                                    object.get("status").toString(), false);
                             noticeItemsTmp.add(noticeItem);
                         }
                     }
                 }
             }
         });
+
+        final AVQuery<AVObject> query_from = new AVQuery<>("Notice").setSkip(page * PAGE_COUNT).setLimit(PAGE_COUNT).orderByDescending("postDate");
+        query_from.whereEqualTo("from", Utils.getCurrentUser().getObjectId());
+        query_from.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> avObjects, AVException e) {
+                if (e != null) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    if (avObjects.isEmpty()) {
+                        Toast.makeText(getActivity(), "没有更多通知", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for (AVObject object : avObjects) {
+                            NoticeItem noticeItem = new NoticeItem(object.getObjectId(), object.getAVUser("from").getObjectId(),
+                                    object.get("to").toString(), object.get("content").toString(), object.get("createdAt").toString(),
+                                    object.get("status").toString(), true);
+                            noticeItemsTmp.add(noticeItem);
+                        }
+                    }
+                }
+            }
+        });
+
+        page++;
     }
 
     private void parseDataHeader() {
@@ -149,6 +176,7 @@ public class NoticeFragment extends Fragment {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Toast.makeText(getActivity().getApplicationContext(), ((TextView) view.findViewById(R.id.fromTextView)).getText().toString(), Toast.LENGTH_SHORT).show();
             Intent noticeItemIntent = new Intent(getActivity(), NoticeItemActivity.class);
+            noticeItemIntent.putExtra("noticeObjectId", noticeItems.get(position - 1).getObjectId());
             noticeItemIntent.putExtra("noticeFrom", noticeItems.get(position - 1).getFromUserName());
             noticeItemIntent.putExtra("noticeContent", noticeItems.get(position - 1).getContent());
             noticeItemIntent.putExtra("noticeDate", noticeItems.get(position - 1).getPostDate());
